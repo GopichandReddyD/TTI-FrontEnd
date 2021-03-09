@@ -9,6 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { ApiInterceptorService } from './_shared/services/api-interceptor.service';
+import { SharedService } from './_shared/services/shared.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ApiInterceptorService } from './_shared/services/api-interceptor.servic
     AppRoutingModule
   ],
   providers: [
+    SharedService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptorService,

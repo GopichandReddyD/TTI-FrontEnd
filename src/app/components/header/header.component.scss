@@ -1,0 +1,61 @@
+@import '../../../assets/styles/palette';
+
+.header {
+    box-shadow: 0 0 2rem rgb(35 44 57 / 20%);
+    background: $color-black-1;
+    position: fixed;
+    left: 0;
+    right: 0;
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+
+        .logo {
+            font-weight: bolder;
+            font-size: 28px;
+            margin-right: 5rem;
+            color: $primary-color;
+            cursor: pointer;
+        }
+
+        .nav .nav-item {
+
+            .nav-link {
+                font-weight: bold;
+                font-size: 18px;
+                color: white;
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+
+            .active {
+                color: $primary-color;
+            }
+        }
+
+        .login-button {
+            margin-right: 10px;
+        }
+    }
+
+    .buttons-view {
+        margin-left: auto;
+
+        .button {
+            color: white;
+            font-weight: 500;
+            font-size: 18px;
+            border: 2px solid #FFBF00;
+            border-radius: 2rem;
+            margin-left: 15px;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+}

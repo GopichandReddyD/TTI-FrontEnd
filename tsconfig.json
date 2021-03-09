@@ -17,7 +17,12 @@
       "dom"
     ],
     "paths": {
-      "@app/*": ["app/*"]
+      "@app/*": [
+        "app/*"
+      ],
+      "@_shared/*": [
+        "app/_shared/*"
+      ]
     }
   },
   "angularCompilerOptions": {

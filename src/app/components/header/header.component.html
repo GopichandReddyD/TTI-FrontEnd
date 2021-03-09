@@ -1,3 +1,31 @@
-<p>header works!</p>
-<button type="button" class="btn btn-primary" routerLink="/auth/login">Login</button>
-<button type="button" class="btn btn-secondary" routerLink="/auth/sign-up">SignUp</button>
+<header class="header" [ngClass]="{'bg-transparent': isTransparentHeader}">
+    <div class="container header-container">
+        <div class="logo" (click)="onLinkClick(HOMEPAGE_SECTIONS.DEFAULT)">
+            COAC
+        </div>
+        <ul class="nav">
+            <li class="nav-item">
+                <span class="nav-link" [ngClass]="{'active': false}">Teaching Resources</span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link" [ngClass]="{'active': false}">Teacher Training</span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link" [ngClass]="{'active': false}">Community</span>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    aria-expanded="fasle">More</a>
+                <div class="dropdown-menu">
+                    <span class="dropdown-item" (click)="onLinkClick(HOMEPAGE_SECTIONS.ABOUT)">About</span>
+                    <a class="dropdown-item" (click)="onLinkClick(HOMEPAGE_SECTIONS.CONTRIBUTOR)">Contributor</a>
+                    <a class="dropdown-item" (click)="onLinkClick(HOMEPAGE_SECTIONS.CONTACTUS)">Contact Us</a>
+                </div>
+            </li>
+        </ul>
+        <div class="buttons-view">
+            <button type="button" class="btn button" routerLink="/auth/login">Log In</button>
+            <button type="button" class="btn button" routerLink="/auth/sign-up">Sign Up</button>
+        </div>
+    </div>
+</header>

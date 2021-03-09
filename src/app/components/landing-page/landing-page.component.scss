@@ -1,0 +1,151 @@
+@import '../../../assets/styles/palette';
+
+.landing-page-section {
+    .section {
+        background-repeat: no-repeat;
+        top: 0;
+        left: 0;
+        position: static;
+        background-attachment: fixed;
+        height: 100vh;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: inherit;
+
+            .section-title {
+                color: white;
+                text-align: center;
+
+                .initial {
+                    color: $primary-color;
+                    font-size: 3.5rem;
+                }
+
+                &::after {
+                    background-color: #FFBF00;
+                    text-align: center;
+                    content: '';
+                    display: block;
+                    height: 3px;
+                    margin: auto;
+                    margin-top: 15px;
+                    margin-bottom: 30px;
+                    width: 70px
+                }
+            }
+        }
+    }
+
+    .section-contactus {
+        color: black;
+    }
+
+    .section-default {
+        background-image: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('https://www.awakenthegreatnesswithin.com/wp-content/uploads/2018/08/Nature-Quotes-1.jpg');
+
+        .section-des {
+            padding: 10px 25px;
+            margin: auto;
+            .section-des-para {
+                color: white;
+                font-size: 24px
+            }
+        }
+    }
+
+    .section-about {
+        background-image: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('https://iso.500px.com/wp-content/uploads/2019/10/ON-THE-LI-RIVER-BY-TOBIAS-HAGG-1500x1000.jpeg');
+        
+        .section-des {
+            padding: 10px 25px;
+
+            .section-des-para {
+                color: white;
+                font-size: 24px
+            }
+
+            .project-view {
+                background: rgba(0,0,0,0.3);
+                border-radius: 10px;
+                padding: 20px;
+                height: 100%;
+                span {
+                    color: white;
+                    font-weight: bold;
+                    font-size: 18px;
+                    background: rgba(255,255,255,0.5);
+                    padding: 6px 20%;
+                    border-radius: 10px;
+                }
+
+                .center-block {
+                    text-align: left;
+
+                    .center-block-ul {
+                        list-style-type: none;
+                        padding-left: 15px;
+                        color: white;
+
+                        .faculty-link {
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .section-contributor {
+        background-image: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('https://cdn.arstechnica.net/wp-content/uploads/2020/04/ars-moonshark-1080p.jpg');
+    }
+
+}
+
+.yellow-color {
+    color: $primary-color;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.scroll-nav {
+    position: fixed;
+    top: 50%;
+    left: 10px;
+
+    ul {
+        padding: 0;
+
+        li {
+            display: block;
+            width: 6px;
+            height: 6px;
+            margin: 10px;
+            border-radius: 50%;
+            position: relative;
+            background: #f15c22;
+
+            &:hover {
+                width: 10px;
+                height: 10px;
+                margin-left: 8px;
+                cursor: pointer;
+            }
+        }
+
+        li.active {
+            width: 14px;
+            height: 14px;
+            margin-left: 6px;
+            cursor: pointer;
+        }
+    }
+}

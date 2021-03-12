@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
 import { SharedService } from 'src/app/_shared/services/shared.service';
 import { HOME_PAGE_SECTIONS } from '../../_shared/constants/constants';
 
@@ -16,10 +16,6 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('contactus') ContactUs: ElementRef;
   private subscriptions: Subscription[] = [];
   private scroll$: Subscription;
-  private startPosition: number;
-  private scrollTime: number;
-  private prevSection: ElementRef;
-  private nextSection: ElementRef;
   public activeSection: ElementRef;
   public activeSectionId: string = 'section-default';
   public HOMEPAGE_SECTIONS = HOME_PAGE_SECTIONS;
@@ -27,74 +23,76 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.detectScroll();
+    this.detectElementOnScroll();
   }
 
   ngAfterViewInit(): void {
     this.scrollTo(this.Home);
-    this.detectHeaderClicks()
+    this.detectHeaderClicks();
+  }
+
+  private isScrolledIntoView(element: ElementRef) {
+    const threshold = 300;
+    const rect = element.nativeElement.getBoundingClientRect();
+    const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    const above = (rect.bottom - threshold) < 0;
+    const below = (rect.top - viewHeight + threshold) >= 0;
+    return (!above && !below);
+  }
+
+  private getViewPortElelment() {
+    switch (true) {
+      case this.isScrolledIntoView(this.Home):
+        if (this.activeSectionId !== HOME_PAGE_SECTIONS.DEFAULT) {
+          this.scrollTo(this.Home);
+        }
+        // this.scrollTo(this.Home);
+        break;
+      case this.isScrolledIntoView(this.About):
+        if (this.activeSectionId !== HOME_PAGE_SECTIONS.ABOUT) {
+          this.scrollTo(this.About);
+        }
+        // this.scrollTo(this.About);
+        break;
+      case this.isScrolledIntoView(this.Contributor):
+        if (this.activeSectionId !== HOME_PAGE_SECTIONS.CONTRIBUTOR) {
+          this.scrollTo(this.Contributor);
+        }
+        // this.scrollTo(this.Contributor);
+        break;
+      case this.isScrolledIntoView(this.ContactUs):
+        if (this.activeSectionId !== HOME_PAGE_SECTIONS.CONTACTUS) {
+          this.scrollTo(this.ContactUs);
+        }
+        // this.scrollTo(this.ContactUs);
+        break;
+    }
+  }
+
+  private detectElementOnScroll() {
+    this.scroll$ = fromEvent(window, 'scroll')
+      .pipe(debounceTime(200))
+      .subscribe(e => {
+        this.getViewPortElelment();
+      });
   }
 
   private getElementRef(selectionId: string) {
     switch (selectionId) {
       case HOME_PAGE_SECTIONS.DEFAULT:
-        this.prevSection = null;
         this.activeSection = this.Home;
-        this.nextSection = this.About;
         break;
       case HOME_PAGE_SECTIONS.ABOUT:
-        this.prevSection = this.Home;
         this.activeSection = this.About;
-        this.nextSection = this.Contributor
         break;
       case HOME_PAGE_SECTIONS.CONTRIBUTOR:
-        this.prevSection = this.About;
         this.activeSection = this.Contributor;
-        this.nextSection = this.ContactUs
         break;
       case HOME_PAGE_SECTIONS.CONTACTUS:
-        this.prevSection = this.Contributor;
         this.activeSection = this.ContactUs;
-        this.nextSection = null
         break;
       default: HOME_PAGE_SECTIONS.DEFAULT;
     }
-  }
-
-  private detectScroll() {
-    this.startPosition = window.scrollY;
-    this.scrollTime = new Date().getTime();
-    this.scroll$ = fromEvent(window, 'scroll')
-      .pipe(debounceTime(100))
-      .subscribe(e => {
-        const currentPosition = window.scrollY;
-        const height = window.innerHeight;
-        if (this.startPosition > currentPosition) {
-          const offSet = this.startPosition - currentPosition;
-          const scrolledPercentage = (offSet / height * 100);
-          const currentTime = new Date().getTime();
-          const scrollTimeDiff = currentTime - this.scrollTime;
-          if (scrolledPercentage >= 2 && scrollTimeDiff > 700) {
-            this.getElementRef(this.activeSectionId);
-            if (this.prevSection) {
-              this.scrollTo(this.prevSection);
-            }
-          }
-        } else {
-          const offSet = currentPosition - this.startPosition;
-          const scrolledPercentage = (offSet / height * 100);
-          const currentTime = new Date().getTime();
-          const scrollTimeDiff = currentTime - this.scrollTime;
-          if (scrolledPercentage >= 2 && scrollTimeDiff > 700) {
-            this.getElementRef(this.activeSectionId);
-            if (this.nextSection) {
-              this.scrollTo(this.nextSection);
-            }
-          }
-        }
-        this.startPosition = currentPosition
-        this.scrollTime = new Date().getTime();
-      });
   }
 
   private updateTransparentHeader() {
@@ -106,7 +104,6 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public scrollTo(el: ElementRef) {
-    this.scrollTime = new Date().getTime();
     this.activeSection = el;
     this.activeSectionId = el.nativeElement.id;
     this.updateTransparentHeader();
@@ -117,11 +114,14 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private detectHeaderClicks() {
     this.subscriptions.push(this.sharedService.headerClick
+      .pipe(filter(value => !!value))
       .subscribe(value => {
         if (value) {
           this.getElementRef(value);
           this.scrollTo(this.activeSection);
-          this.sharedService.resetHeaderClick();
+          setTimeout(() => {
+            this.sharedService.resetHeaderClick();
+          }, 1000);
         }
       })
     );

@@ -107,17 +107,29 @@
 
 <div class="scroll-nav">
     <ul>
-        <li (click)="scrollTo(Home)" [ngClass]="{'active': activeSectionId === HOMEPAGE_SECTIONS.DEFAULT}">
+        <li class="nav-down-icon" [ngClass]="{'display-none': activeSectionId === HOMEPAGE_SECTIONS.DEFAULT}"
+            (click)="scrollTo(prevSection)">
+            <i class="las la-angle-up"></i>
+        </li>
+        <li class="nav-icon" (click)="scrollTo(Home)"
+            [ngClass]="{'active': activeSectionId === HOMEPAGE_SECTIONS.DEFAULT}">
             <span></span>
         </li>
-        <li (click)="scrollTo(About)" [ngClass]="{'active': activeSectionId === HOMEPAGE_SECTIONS.ABOUT}">
+        <li class="nav-icon" (click)="scrollTo(About)"
+            [ngClass]="{'active': activeSectionId === HOMEPAGE_SECTIONS.ABOUT}">
             <span></span>
         </li>
-        <li (click)="scrollTo(Contributor)" [ngClass]="{'active': activeSectionId === HOMEPAGE_SECTIONS.CONTRIBUTOR}">
+        <li class="nav-icon" (click)="scrollTo(Contributor)"
+            [ngClass]="{'active': activeSectionId === HOMEPAGE_SECTIONS.CONTRIBUTOR}">
             <span></span>
         </li>
-        <li (click)="scrollTo(ContactUs)" [ngClass]="{'active': activeSectionId === HOMEPAGE_SECTIONS.CONTACTUS}">
+        <li class="nav-icon" (click)="scrollTo(ContactUs)"
+            [ngClass]="{'active': activeSectionId === HOMEPAGE_SECTIONS.CONTACTUS}">
             <span></span>
+        </li>
+        <li class="nav-down-icon" [ngClass]="{'display-none': activeSectionId === HOMEPAGE_SECTIONS.CONTACTUS}"
+            (click)="scrollTo(nextSection)">
+            <i class="las la-angle-down"></i>
         </li>
     </ul>
 

@@ -41,6 +41,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.sharedService.updateHeaderClick(sectionId);
   }
 
+  public navigatetoUrl() {
+    console.log('coming here header click');
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe);
   }

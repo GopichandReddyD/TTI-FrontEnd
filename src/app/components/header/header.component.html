@@ -5,22 +5,74 @@
         </div>
         <ul class="nav">
             <li class="nav-item">
-                <span class="nav-link" [ngClass]="{'active': false}">Teaching Resources</span>
-            </li>
-            <li class="nav-item">
-                <span class="nav-link" [ngClass]="{'active': false}">Teacher Training</span>
-            </li>
-            <li class="nav-item">
-                <span class="nav-link" [ngClass]="{'active': false}">Community</span>
+                <a class="nav-link" [ngClass]="{'active': false}" (click)="onLinkClick(HOMEPAGE_SECTIONS.ABOUT)">
+                    About us
+                </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                    aria-expanded="fasle">More</a>
-                <div class="dropdown-menu">
-                    <span class="dropdown-item" (click)="onLinkClick(HOMEPAGE_SECTIONS.ABOUT)">About</span>
-                    <a class="dropdown-item" (click)="onLinkClick(HOMEPAGE_SECTIONS.CONTRIBUTOR)">Contributor</a>
-                    <a class="dropdown-item" (click)="onLinkClick(HOMEPAGE_SECTIONS.CONTACTUS)">Contact Us</a>
-                </div>
+                <a class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="fasle"
+                    (click)="navigatetoUrl()">
+                    TTI Resources
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item dropdown-toggle">
+                            FBA
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item">Indirect</a></li>
+                            <li><a class="dropdown-item">Descriptive</a></li>
+
+                            <!-- <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 2</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Subsubmenu2</a></li>
+                                    <li><a class="dropdown-item" href="#">Subsubmenu2</a></li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item dropdown-toggle">
+                            Data Collection
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item">Occurrences</a></li>
+                            <li><a class="dropdown-item">Temporal Dimensions</a></li>
+                            <li><a class="dropdown-item">Strength of a behaviour</a></li>
+                            <li><a class="dropdown-item">Sampling procedures</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item dropdown-toggle">
+                            Preferences
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item">Indirect preference</a></li>
+                            <li><a class="dropdown-item">Direct Preference</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item dropdown-toggle">
+                            Interobserver
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item">Discrete Trail</a></li>
+                            <li><a class="dropdown-item">Frequency</a></li>
+                            <li><a class="dropdown-item">Duration</a></li>
+                            <li><a class="dropdown-item">Occurrences per interval</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link" [ngClass]="{'active': false}">Upload</span>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="fasle">More</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item">Subscribe newsletter</a></li>
+                    <li><a class="dropdown-item">Contact us</a></li>
+                </ul>
             </li>
         </ul>
         <div class="buttons-view">

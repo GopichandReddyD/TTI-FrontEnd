@@ -104,6 +104,15 @@
 
     .section-contributor {
         background-image: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('https://cdn.arstechnica.net/wp-content/uploads/2020/04/ars-moonshark-1080p.jpg');
+
+        .section-des {
+            padding: 10px 25px;
+            margin: auto;
+            .section-des-para {
+                color: white;
+                font-size: 24px
+            }
+        }
     }
 
 }

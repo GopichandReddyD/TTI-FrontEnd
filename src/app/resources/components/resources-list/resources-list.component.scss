@@ -1,0 +1,102 @@
+#resources-section {
+    padding-top: 100px;
+
+    .page-title {
+        border-bottom: 1px solid grey;
+        margin-bottom: 30px;
+        padding-bottom: 5px;
+    }
+
+    .table-view {
+        width: 100%;
+        margin-bottom: 30px;
+    
+        .mat-table {
+        width: 100%;
+    
+            .mat-header-row {
+                background: black;
+            }
+        
+            .mat-header-cell {
+                color: white;
+                font-size: 14px;
+                outline: none;
+        
+                ::ng-deep .mat-sort-header-button {
+                outline: none;
+                }
+        
+                ::ng-deep .mat-sort-header-arrow {
+                color: white;
+                }
+            }
+        
+            .mat-cell {
+            
+            }
+
+            .mat-column-title {
+                min-width: 40%;
+                max-width: 40%;
+            }
+            .mat-column-mainCategory {
+                min-width: 10%;
+                max-width: 10%;
+            }
+            .mat-column-subCategory {
+                max-width: 12%;
+                min-width: 12%;
+            }
+            .mat-column-downloadImage {
+                max-width: 10%;
+                min-width: 10%;
+                justify-content: center;
+            }
+            .mat-column-downloadCount {
+                max-width: 12%;
+                min-width: 12%;
+                justify-content: center;
+            }
+        }
+        .empty-section {
+            height: 60px;
+            display: flex;
+            align-items: center;
+        
+            p {
+            width: 100%;
+            margin: 0;
+            text-align: center;
+            }
+        }
+    }
+
+    .paginator-view {
+        padding: 25px 0;
+        margin: auto;
+      
+        ::ng-deep .ngx-pagination {
+          padding-left: 0;
+      
+          .current {
+            background: #275ab8;
+            border-radius: 5px;
+            color: white;
+          }
+          a {
+            color: black;
+            outline: none;
+            &:hover {
+              background: #275ab8;
+              border-radius: 5px;
+              color: white;
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+}
+.download-zip-link {
+    opacity: 0;
+}

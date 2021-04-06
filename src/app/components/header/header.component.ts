@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public navigatetoUrl() {
-    console.log('coming here header click');
+    this.router.navigate(['/resources/tti-resources-list']);
   }
 
   ngOnDestroy(): void {

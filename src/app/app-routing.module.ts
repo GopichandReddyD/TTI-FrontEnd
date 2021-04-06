@@ -8,6 +8,10 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(module => module.AuthModule)
   },
+  {
+    path: 'resources',
+    loadChildren: () => import('./resources/resources.module').then(module => module.ResourcesModule)
+  },
   { path: '', pathMatch: 'full', redirectTo: '/home' }
 ];
 

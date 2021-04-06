@@ -1,0 +1,45 @@
+<section id="resources-section">
+  <div class="container">
+    <div>
+        <h1 class="page-title">TTI Resources</h1>
+    </div>
+    <div class="mat-elevation-z1 table-view">
+      <!-- <mat-table [dataSource]="dataSource | paginate: {itemsPerPage: 4, currentPage: currentPage, totalItems: 8}" matSort matSortStart="asc"> -->
+        <mat-table [dataSource]="dataSource" matSort matSortStart="asc">
+        <ng-container [matColumnDef]="displayedColumns[0]">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+        </ng-container>
+        <ng-container [matColumnDef]="displayedColumns[1]">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Level </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.mainCategory}} </mat-cell>
+        </ng-container>
+        <ng-container [matColumnDef]="displayedColumns[2]">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Subject Area </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.subCategory}} </mat-cell>
+        </ng-container>
+        <ng-container [matColumnDef]="displayedColumns[3]">
+          <mat-header-cell *matHeaderCellDef> Download </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <a (click)="downloadFile(element.name)" style="cursor: pointer;text-decoration: underline;">click</a>
+          </mat-cell>
+        </ng-container>
+        <ng-container [matColumnDef]="displayedColumns[4]">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Download # </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.downloadCount}} </mat-cell>
+        </ng-container>       
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <div class="empty-section" *ngIf="resourcesList?.length === 0">
+        <p>No Resources Available</p>
+      </div>
+    </div>
+
+    <!-- <div class="row no-gutters">
+      <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+    </div> -->
+  </div>
+</section>
+
+<a class="download-zip-link" #downloadZipLink></a>

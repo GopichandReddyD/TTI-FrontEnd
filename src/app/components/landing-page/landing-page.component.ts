@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime, filter } from 'rxjs/operators';
+import { fromEvent, Observable, Subscription } from 'rxjs';
+import { debounceTime, filter, map } from 'rxjs/operators';
 import { SharedService } from 'src/app/_shared/services/shared.service';
 import { HOME_PAGE_SECTIONS } from '../../_shared/constants/constants';
 
@@ -22,7 +23,8 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
   public activeSectionId: string = 'section-default';
   public HOMEPAGE_SECTIONS = HOME_PAGE_SECTIONS;
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService,
+              private http: HttpClient) { }
 
   ngOnInit(): void {
     this.detectElementOnScroll();
@@ -137,5 +139,4 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scroll$.unsubscribe();
     this.subscriptions.forEach(subscription => subscription.unsubscribe);
   }
-
 }

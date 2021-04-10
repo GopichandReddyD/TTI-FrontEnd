@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { PaginatePipeArgs } from 'ngx-pagination/dist/paginate.pipe';
 import { ResourcesService } from '../../_shared/resources.service';
 
 @Component({
@@ -12,15 +13,15 @@ import { ResourcesService } from '../../_shared/resources.service';
 export class ResourcesListComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('resourcePaginator') paginator: MatPaginator;
   @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
   public displayedColumns: string[] = ['title', 'mainCategory', 'subCategory', 'downloadImage', 'downloadCount'];
   public isLoading: boolean = true;
   public resourcesList: any = [];
   public dataSource: MatTableDataSource<any[]> = new MatTableDataSource([]);
-  public paginateConfig: PaginatePipeArgs = {};
-  currentPage: 0;
 
-  constructor(private resourcesService: ResourcesService) { }
+  constructor(private router: Router,
+    private resourcesService: ResourcesService) { }
 
   ngOnInit(): void {
     this.getAllResources();
@@ -38,21 +39,11 @@ export class ResourcesListComponent implements OnInit {
       })
   }
 
-  private setPaginatorConfig() {
-    this.paginateConfig.currentPage = 0;
-    this.paginateConfig.itemsPerPage = 4;
-    this.getAllResources();    
-  }
 
   private initialiseTable(list: any[]) {
     this.dataSource = new MatTableDataSource(list);
     this.dataSource.sort = this.sort;
-    // this.paginateConfig.totalItems = this.resourcesList.length;
-  }
-
-  public onPageChange(pageChangedEvent: any) {
-    this.currentPage = pageChangedEvent;
-    this.initialiseTable(this.resourcesList.slice(pageChangedEvent * 4 - 4, pageChangedEvent * 4));
+    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -66,6 +57,10 @@ export class ResourcesListComponent implements OnInit {
         link.click();
         window.URL.revokeObjectURL(url);
       });
+  }
+
+  navigateToUrl(resourceId: any) {
+    this.router.navigate(['/resources/tti-resource-detail', resourceId])
   }
 
 }

@@ -1,1 +1,7 @@
-<p>resource-detail works!</p>
+<section id="resource-details-section" *ngIf="!isLoading">
+    <div class="container">
+        <h1> {{ resourceDetails.title }}</h1>
+        <p><strong>Description: </strong> {{ resourceDetails.description }}</p>
+        <p><strong>Type: </strong> {{ resourceDetails.type }}</p>
+    </div>
+</section>

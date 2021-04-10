@@ -12,6 +12,10 @@ export class ResourcesService {
     return this.http.get('../../../assets/mockData/getAllResourcesMock.json');
   }
 
+  public getResourceDetails(id): Observable<any> {
+    return this.http.get('../../../assets/mockData/getAllResourcesMock.json');
+  }
+
   downloadFileAPI(): Observable<any> {
     return this.http.get('../../../assets/mockData/downloadFIleMockResponse.json', {
       responseType: 'blob' as 'json'

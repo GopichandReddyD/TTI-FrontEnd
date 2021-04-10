@@ -1,5 +1,5 @@
 #resources-section {
-    padding-top: 100px;
+    padding: 6rem 0 3rem;
 
     .page-title {
         border-bottom: 1px solid grey;
@@ -39,6 +39,7 @@
             .mat-column-title {
                 min-width: 40%;
                 max-width: 40%;
+                cursor: pointer;
             }
             .mat-column-mainCategory {
                 min-width: 10%;

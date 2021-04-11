@@ -2,13 +2,13 @@
     "data": [
         {
             "id": 1,
-            "description": "des",
+            "description": "Its a Youtube video of Dollas University",
             "mainCategory": "main",
             "subCategory": "sub",
-            "type": "application/pdf",
+            "type": "application/video",
             "keywords": "key,word",
-            "name": "HS_Assignment11_Doggala.pdf",
-            "filePath": "/Users/gopichandureddy/Desktop/rbt/HS_Assignment11_Doggala.pdf",
+            "name": "UT Dollas University",
+            "filePath": "",
             "ref": "reef",
             "title": "Title one",
             "level": "All",

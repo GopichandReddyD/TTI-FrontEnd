@@ -21,7 +21,8 @@
         <ng-container [matColumnDef]="displayedColumns[3]">
           <mat-header-cell *matHeaderCellDef> Download </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <a (click)="downloadFile(element.name)" style="cursor: pointer;text-decoration: underline;">click</a>
+            <a *ngIf="element.type.includes('pdf')" (click)="downloadFile(element.name)" style="cursor: pointer;text-decoration: underline;">click</a>
+            <span *ngIf="element.type.includes('video')">N/A</span>
           </mat-cell>
         </ng-container>
         <ng-container [matColumnDef]="displayedColumns[4]">

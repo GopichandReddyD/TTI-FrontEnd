@@ -1,0 +1,10 @@
+.spinner-view {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    ::ng-deep .mat-progress-spinner, .mat-spinner {
+        circle {
+            stroke: #FFBF00;;
+        }
+    }
+}

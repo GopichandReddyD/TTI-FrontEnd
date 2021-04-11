@@ -1,10 +1,12 @@
+<div *ngIf="isLoading" class="spinner-view">
+  <mat-spinner diameter="40"></mat-spinner>
+</div>
 <section id="resources-section">
   <div class="container">
     <div>
         <h1 class="page-title">TTI Resources</h1>
     </div>
     <div class="mat-elevation-z1 table-view" [hidden]="resourcesList?.length === 0">
-      <!-- <mat-table [dataSource]="dataSource | paginate: {itemsPerPage: 4, currentPage: currentPage, totalItems: 8}" matSort matSortStart="asc"> -->
       <mat-table [dataSource]="dataSource" matSort matSortStart="asc">
         <ng-container [matColumnDef]="displayedColumns[0]">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
@@ -21,13 +23,13 @@
         <ng-container [matColumnDef]="displayedColumns[3]">
           <mat-header-cell *matHeaderCellDef> Download </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <a *ngIf="element.type.includes('pdf')" (click)="downloadFile(element.name)" style="cursor: pointer;text-decoration: underline;">click</a>
-            <span *ngIf="element.type.includes('video')">N/A</span>
+            <span *ngIf="element.type.includes('pdf')" (click)="downloadFile(element.name)"><i class="las la-file-pdf icon"></i></span>
+            <span *ngIf="element.type.includes('video')"><i class="lab la-youtube icon"></i></span>
           </mat-cell>
         </ng-container>
         <ng-container [matColumnDef]="displayedColumns[4]">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Download # </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.downloadCount}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.type.includes('video') ? 'N/A' : element.downloadCount}} </mat-cell>
         </ng-container>       
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
@@ -42,10 +44,6 @@
         showFirstLastButtons>
       </mat-paginator>
     </div>
-
-    <!-- <div class="row no-gutters" *ngIf="!isLoading && resourcesList?.length > 0">
-      <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
-    </div> -->
   </div>
 </section>
 

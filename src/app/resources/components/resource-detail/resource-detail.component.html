@@ -1,8 +1,17 @@
+<div *ngIf="isLoading" class="spinner-view">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
 <section id="resource-details-section" *ngIf="!isLoading">
     <div class="container">
+        <p class="back-breadcrumb">
+            <span routerLink="/resources/tti-resources-list">
+                <i class="las la-angle-left"></i> Back to TTI Resources
+            </span>
+        </p>
         <h1> {{ resourceDetails.title }}</h1>
         <p><strong>Description: </strong> {{ resourceDetails.description }}</p>
         <p><strong>Type: </strong> {{ resourceDetails.type }}</p>
+        <p><strong>Name: </strong> {{ resourceDetails.name }}</p>
         <div class="youtube-video-view" *ngIf="resourceDetails.type.includes('video')">
             <youtube-player 
                 videoId="lSpANsEzbM0" 
@@ -10,6 +19,16 @@
                 [height]="400" 
                 [width]="700">
             </youtube-player>
+        </div>
+        <div *ngIf="resourceDetails.type.includes('pdf') && pdfSource">
+            <pdf-viewer
+                [src]="pdfSource"
+                [render-text]="true"
+                [original-size]="true"
+                [fit-to-page]="true"
+                [show-all]="true"
+                [show-borders]="true">
+            </pdf-viewer>
         </div>
     </div>
 </section>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
 
 import { UploaderService } from '../../_shared/uploader.service';
@@ -16,10 +16,10 @@ export class UploaderComponent implements OnInit {
   uploadForm: FormGroup;
   selectedFileName: string = '';
   mainCategory = [
-    { name: 'FBA', value: 'FBA', subCategory: [{name: 'Indirect', value: 'Indirect'},{name: 'Descriptive', value: 'Descriptive'}]},
-    { name: 'Data Collection', value: 'Data Collection', subCategory: [{name: 'x', value: 'x'},{name: 'Descriptive', value: 'Descriptive'}]},
-    { name: 'Preferencces', value: 'Preferencces', subCategory: [{name: 'Indirect', value: 'Indirect'},{name: 'Descriptive', value: 'Descriptive'}]},
-    { name: 'Interobserver', value: 'Interobserver', subCategory: [{name: 'Indirect', value: 'Indirect'},{name: 'Descriptive', value: 'Descriptive'}]},
+    { name: 'FBA', value: 'FBA', subCategory: [{ name: 'Indirect', value: 'Indirect' }, { name: 'Descriptive', value: 'Descriptive' }] },
+    { name: 'Data Collection', value: 'Data Collection', subCategory: [{ name: 'Occurrences', value: 'Occurrences' }, { name: 'Temporal Dimensions', value: 'Temporal Dimensions' }, { name: 'Strength of a behaviour', value: 'Strength of a behaviour' }, { name: 'Sampling procedures', value: 'Sampling procedures' }] },
+    { name: 'Preferencces', value: 'Preferencces', subCategory: [{ name: 'Indirect preference', value: 'Indirect preference' }, { name: 'Direct Preference', value: 'Direct Preference' }] },
+    { name: 'Interobserver', value: 'Interobserver', subCategory: [{ name: 'Discrete Trail', value: 'Discrete Trail' }, { name: 'Frequency', value: 'Frequency' }, { name: 'Duration', value: 'Duration' }, { name: 'Occurrences per interval', value: 'Occurrences per interval' }] },
     //{ name: 'Entrepreneurship', value: 'Entrepreneurship'},
     //{ name: 'Literacy/Reading', value: 'Literacy/Reading'}
   ];
@@ -155,7 +155,7 @@ export class UploaderComponent implements OnInit {
     });
   }
 
-  public onMainCategoryChange(){
+  public onMainCategoryChange() {
     this.subCategory = this.uploadForm.value.mainCategory.subCategory;
   }
 

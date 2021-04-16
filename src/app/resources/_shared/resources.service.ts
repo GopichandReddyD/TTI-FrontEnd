@@ -12,12 +12,13 @@ export class ResourcesService {
     return this.http.get('/getAllFiles');
   }
 
-  public getResourceDetails(id): Observable<any> {
+  public getResourceDetails(name): Observable<any> {
+    //return this.http.get(`/getFileDetails/${name}`);
     return this.http.get('/getAllFiles');
   }
 
-  downloadFileAPI(): Observable<any> {
-    return this.http.get('../../../assets/mockData/downloadFIleMockResponse.json', {
+  downloadFileAPI(fileName: string): Observable<any> {
+    return this.http.get(`/getFile/${fileName}`, {
       responseType: 'blob' as 'json'
     });
   }

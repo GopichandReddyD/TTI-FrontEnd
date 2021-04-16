@@ -48,7 +48,7 @@ export class ResourcesListComponent implements OnInit {
 
 
   downloadFile(fileName: string = 'sample.pdf') {
-    this.resourcesService.downloadFileAPI()
+    this.resourcesService.downloadFileAPI(fileName)
       .subscribe(response => {
         const url = window.URL.createObjectURL(response);    
         const link = this.downloadZipLink.nativeElement;
@@ -59,8 +59,8 @@ export class ResourcesListComponent implements OnInit {
       });
   }
 
-  navigateToUrl(resourceId: any) {
-    this.router.navigate(['/resources/tti-resource-detail', resourceId])
+  navigateToUrl(resourceName: any) {
+    this.router.navigate(['/resources/tti-resource-detail', resourceName])
   }
 
 }

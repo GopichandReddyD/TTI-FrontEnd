@@ -10,7 +10,7 @@ const routes: Routes = [
     component: ResourcesListComponent
   },
   {
-    path: 'tti-resource-detail/:resourceId',
+    path: 'tti-resource-detail/:resourceName',
     component: ResourceDetailComponent
   }
 ];

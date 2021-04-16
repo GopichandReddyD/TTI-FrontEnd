@@ -9,7 +9,7 @@ import { ResourcesService } from '../../_shared/resources.service';
 })
 export class ResourceDetailComponent implements OnInit {
   public isLoading: boolean = true;
-  public resourceID: string;
+  public resourceName: string;
   public resourceDetails: any;
   public pdfSource: any;
   public videoId: any;
@@ -18,13 +18,14 @@ export class ResourceDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.resourceID = this.activatedRoute.snapshot.params['resourceId'] || '';
+    this.resourceName = this.activatedRoute.snapshot.params['resourceName'] || '';
     this.getResourceDetails();
   }
 
   private getFileDetails() {
     if (this.resourceDetails.type.includes('pdf')) {
-      this.resourcesService.downloadFileAPI()
+      const fileName = this.resourceDetails.name;
+      this.resourcesService.downloadFileAPI(fileName)
         .subscribe(response => {
           const url = window.URL.createObjectURL(response);
           this.pdfSource = url;
@@ -37,9 +38,9 @@ export class ResourceDetailComponent implements OnInit {
 
   private getResourceDetails() {
     this.isLoading = true;
-    this.resourcesService.getResourceDetails(this.resourceID)
+    this.resourcesService.getResourceDetails(this.resourceName)
       .subscribe(response => {
-        const resource = response.find(res => res.id.toString() === this.resourceID.toString());
+        const resource = response.find(res => res.id.toString() === this.resourceName.toString());
         this.resourceDetails = resource;
         this.getFileDetails();
         this.isLoading = false;

@@ -12,7 +12,7 @@ export class ApiInterceptorService implements HttpInterceptor {
     const apiRequest = req.clone({
       setHeaders: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': req.url.includes('upload/file') ? 'multipart/form-data' : 'application/json',
         'Access-Control-Allow-Origin': '*'
         // 'Authorization': TODO: To be added
       },

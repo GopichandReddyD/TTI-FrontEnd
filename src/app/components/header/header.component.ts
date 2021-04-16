@@ -45,6 +45,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/resources/tti-resources-list']);
   }
 
+  public navigatetoUploader() {
+    this.router.navigate(['/uploader/upload']);
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe);
   }

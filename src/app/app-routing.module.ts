@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'resources',
     loadChildren: () => import('./resources/resources.module').then(module => module.ResourcesModule)
   },
+  {
+    path: 'uploader',
+    loadChildren: () => import('./uploader/uploader.module').then(module => module.UploaderModule)
+  },
   { path: '', pathMatch: 'full', redirectTo: '/home' }
 ];
 

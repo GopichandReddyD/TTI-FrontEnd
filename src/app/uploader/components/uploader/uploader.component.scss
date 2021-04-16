@@ -1,0 +1,50 @@
+@import '../../../../assets/styles/styles';
+@import '../../../../assets/styles/palette';
+
+#uploader-section {
+    padding: 6rem 0 3rem;
+
+    .page-title {
+        border-bottom: 1px solid grey;
+        margin-bottom: 30px;
+        padding-bottom: 5px;
+    }
+
+    .upload-form {
+        .buttons-view {
+            display: flex;
+            justify-content: center;
+
+            .submit-button {
+                background-color: #8CC34A;
+                color: white;
+                font-weight: 500;
+                font-size: 18px;
+                border-radius: 2rem;
+                padding: 0.5rem 1.5rem;
+
+                .button-spinner {
+                    display: inline-block;
+                    position: relative;
+                    top: 4px;
+                    left: 4px;
+                }
+            }
+
+            .disabled-button {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .reset-button {
+                background-color: #cc0000;
+                color: white;
+                font-weight: 500;
+                font-size: 18px;
+                border-radius: 2rem;
+                margin-left: 15px;
+                padding: 0.5rem 1.5rem;
+            }
+        }
+    }
+}

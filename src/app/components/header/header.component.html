@@ -65,14 +65,17 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <span class="nav-link" [ngClass]="{'active': false}">Upload</span>
+                <span class="nav-link" [ngClass]="{'active': false}" (click)="navigatetoUploader()">Upload</span>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="fasle">More</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item">Subscribe newsletter</a></li>
-                    <li><a class="dropdown-item">Contact us</a></li>
-                </ul>
+                <a class="nav-link" [ngClass]="{'active': false}">
+                    Subscribe to Newsletter
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" [ngClass]="{'active': false}" (click)="onLinkClick(HOMEPAGE_SECTIONS.CONTACTUS)">
+                    Contact Us
+                </a>
             </li>
         </ul>
         <div class="buttons-view">

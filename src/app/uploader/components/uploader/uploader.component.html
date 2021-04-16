@@ -1,0 +1,69 @@
+<div *ngIf="isLoading" class="spinner-view">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+<section id="uploader-section" *ngIf="!isLoading">
+    <div class="container">
+        <div>
+            <h1 class="page-title">Uploader Form</h1>
+        </div>
+        <div>
+            <form [formGroup]="uploadForm" class="row no-gutters upload-form justify-content-center">
+                <mat-form-field appearance="standard" class="col-8">
+                    <mat-label>Title</mat-label>
+                    <input matInput placeholder="Enter Resource Title" formControlName="title" required>
+                </mat-form-field>
+                <mat-form-field appearance="standard" class="col-8">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput placeholder="Enter Resource Description" rows="4" formControlName="description" required></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="standard" class="col-8">
+                    <mat-label>Grand Level</mat-label>
+                    <mat-select name="level" formControlName="level" required>
+                        <mat-option *ngFor="let level of gradeLevels" [value]="level.value">{{level.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="standard" class="col-8">
+                    <mat-label>Subject Area</mat-label>
+                    <mat-select name="attachmentType" formControlName="subjectArea" required>
+                        <mat-option *ngFor="let subject of subjectAreas" [value]="subject.value">{{subject.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="standard" class="col-8">
+                    <mat-label>Keywords</mat-label>
+                    <input matInput placeholder="Enter type" formControlName="keywords">
+                    <mat-hint>Use ',' (comma) as separator</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="standard" class="col-8">
+                    <mat-label>Attachment Type</mat-label>
+                    <mat-select name="attachmentType" formControlName="attachmentType" (selectionChange)="onResourceTypeChange()" required>
+                        <mat-option value="file">File Attachment</mat-option>
+                        <mat-option value="video">Video Link</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="col-8" *ngIf="uploadForm.value.attachmentType === 'file'">
+                    <p>Resource Attachment<span style="color:red;">*</span></p>
+                    <input hidden #fileInput type="file" (change)="onFileSelect($event)">
+                    <button type="button" (click)="fileInput.click()">Choose File</button>
+                    <span>{{ selectedFileName ? selectedFileName : 'No file chosen' }}</span>
+                </div>
+                <ng-container *ngIf="uploadForm.value.attachmentType === 'video'">
+                    <mat-form-field appearance="standard" class="col-8">
+                        <mat-label>Resource Link</mat-label>
+                        <input matInput placeholder="Paste your Youtube Link" formControlName="filePath" required>
+                    </mat-form-field>
+                </ng-container>
+                <mat-form-field appearance="standard" class="col-8">
+                    <mat-label>References</mat-label>
+                    <textarea matInput placeholder="Optional" rows="4" formControlName="references"></textarea>
+                </mat-form-field>
+                <div class="col-8 buttons-view">
+                    <button type="button" class="btn button submit-button" (click)="submitUploadForm()" [ngClass]="{'disabled-button': !uploadForm.valid}">
+                        Submit
+                        <mat-spinner diameter="20" *ngIf="isFormSubmitted" class="button-spinner"></mat-spinner>
+                    </button>
+                    <button type="button" class="btn button reset-button" (click)="uploadForm.reset()">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

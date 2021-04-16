@@ -56,7 +56,12 @@
                 min-width: 10%;
                 justify-content: center;
             }
-            .mat-column-downloadCount {
+            .mat-column-downloads {
+                max-width: 12%;
+                min-width: 12%;
+                justify-content: center;
+            }
+            .mat-column-views {
                 max-width: 12%;
                 min-width: 12%;
                 justify-content: center;

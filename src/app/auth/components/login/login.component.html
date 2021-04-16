@@ -1,3 +1,24 @@
-<section class="container">
-    <h2>login works!</h2>
-</section>
+<div class="row no-gutters justify-content-center align-items-center login-view">
+    <div class="col-12 col-sm-10 col-md-4 login-box">
+        <h2 class="login-title">Log In</h2>
+        <form [formGroup]="loginForm" class="row no-gutters justify-content-center">
+            <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Enter Email" formControlName="email" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Enter Password" formControlName="password" required>
+            </mat-form-field>
+            <div class="col-8 buttons-view">
+                <button type="button" class="btn button login-button" (click)="loginUser()" [ngClass]="{'disabled-button': !loginForm.valid}">
+                    Submit
+                    <mat-spinner diameter="20" *ngIf="isFormSubmitted" class="button-spinner"></mat-spinner>
+                </button>
+            </div>
+            <div class="col-8 forgot-password">
+                <p>Forgot password?</p>
+            </div>
+        </form>
+    </div>
+</div>

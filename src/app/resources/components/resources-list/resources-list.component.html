@@ -29,7 +29,11 @@
         </ng-container>
         <ng-container [matColumnDef]="displayedColumns[4]">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Download # </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{ element.type.includes('video') ? 'N/A' : element.downloadCount}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.downloads}} </mat-cell>
+        </ng-container>
+        <ng-container [matColumnDef]="displayedColumns[5]">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Views # </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.views}} </mat-cell>
         </ng-container>       
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

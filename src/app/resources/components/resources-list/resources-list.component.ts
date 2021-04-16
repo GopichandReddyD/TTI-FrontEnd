@@ -15,7 +15,7 @@ export class ResourcesListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('resourcePaginator') paginator: MatPaginator;
   @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
-  public displayedColumns: string[] = ['title', 'mainCategory', 'subCategory', 'downloadImage', 'downloadCount'];
+  public displayedColumns: string[] = ['title', 'mainCategory', 'subCategory', 'downloadImage', 'downloads', 'views'];
   public isLoading: boolean = true;
   public resourcesList: any = [];
   public dataSource: MatTableDataSource<any[]> = new MatTableDataSource([]);

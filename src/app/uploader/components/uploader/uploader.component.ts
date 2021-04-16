@@ -15,15 +15,16 @@ export class UploaderComponent implements OnInit {
   isFormSubmitted: boolean = false;
   uploadForm: FormGroup;
   selectedFileName: string = '';
-  subjectAreas = [
-    { name: 'First Aid', value: 'First Aid'},
-    { name: 'Technology', value: 'Technology'},
-    { name: 'Math', value: 'Math'},
-    { name: 'Health and Diseases', value: 'Health and Diseases'},
-    { name: 'Entrepreneurship', value: 'Entrepreneurship'},
-    { name: 'Literacy/Reading', value: 'Literacy/Reading'}
+  mainCategory = [
+    { name: 'FBA', value: 'FBA', subCategory: [{name: 'Indirect', value: 'Indirect'},{name: 'Descriptive', value: 'Descriptive'}]},
+    { name: 'Data Collection', value: 'Data Collection', subCategory: [{name: 'x', value: 'x'},{name: 'Descriptive', value: 'Descriptive'}]},
+    { name: 'Preferencces', value: 'Preferencces', subCategory: [{name: 'Indirect', value: 'Indirect'},{name: 'Descriptive', value: 'Descriptive'}]},
+    { name: 'Interobserver', value: 'Interobserver', subCategory: [{name: 'Indirect', value: 'Indirect'},{name: 'Descriptive', value: 'Descriptive'}]},
+    //{ name: 'Entrepreneurship', value: 'Entrepreneurship'},
+    //{ name: 'Literacy/Reading', value: 'Literacy/Reading'}
   ];
-  gradeLevels = [
+  subCategory: any;
+  /*gradeLevels = [
     { name: 'Pre-K', value: 'Pre-K'},
     { name: 'Kindergarten', value: 'Kindergarten'},
     { name: '1st Grade', value: '1st Grade'},
@@ -37,7 +38,7 @@ export class UploaderComponent implements OnInit {
     { name: '9th Grade', value: '9th Grade'},
     { name: '10th Grade', value: '10th Grade'},
     { name: '11th Grade', value: '11th Grade'}
-  ];
+  ];*/
 
   constructor(private uploaderService: UploaderService,
     private _snackBar: MatSnackBar) { }
@@ -55,8 +56,8 @@ export class UploaderComponent implements OnInit {
     this.uploadForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      level: new FormControl('', Validators.required),
-      subjectArea: new FormControl('', Validators.required),
+      subCategory: new FormControl('', Validators.required),
+      mainCategory: new FormControl(null, Validators.required),
       keywords: new FormControl(''),
       attachmentType: new FormControl('', Validators.required),
       resourceAttachment: new FormControl('', Validators.required),
@@ -104,13 +105,14 @@ export class UploaderComponent implements OnInit {
     const formDetails = {
       "title": this.uploadForm.value.title,
       "description": this.uploadForm.value.description,
-      "mainCategory": this.uploadForm.value.level,
-      "subCategory": this.uploadForm.value.subjectArea,
+      "mainCategory": this.uploadForm.value.mainCategory.value,
+      "subCategory": this.uploadForm.value.subCaterory,
       "keywords": this.uploadForm.value.keywords,
       "ref": this.uploadForm.value.references
     }
     formData.append('file', this.uploadForm.get('resourceAttachment').value);
     formData.append('fileDetails', JSON.stringify(formDetails));
+    //formData.append("reportProgress", "true");
     console.log('formdate file', formData.get('file'), formData.get('fileDetails'));
     // TODO: make POST API call
     this.uploaderService.uploadResourceFileForm(formData)
@@ -127,8 +129,8 @@ export class UploaderComponent implements OnInit {
     const payload = {
       "title": this.uploadForm.value.title,
       "description": this.uploadForm.value.description,
-      "mainCategory": this.uploadForm.value.level,
-      "subCategory": this.uploadForm.value.subjectArea,
+      "mainCategory": this.uploadForm.value.mainCategory.value,
+      "subCategory": this.uploadForm.value.subCaterory,
       "type": "video",
       "name": this.uploadForm.value.title,
       "filePath": this.uploadForm.value.filePath,
@@ -151,6 +153,10 @@ export class UploaderComponent implements OnInit {
     this._snackBar.open(message, null, {
       duration: 2000,
     });
+  }
+
+  public onMainCategoryChange(){
+    this.subCategory = this.uploadForm.value.mainCategory.subCategory;
   }
 
 }

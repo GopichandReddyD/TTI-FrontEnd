@@ -9,11 +9,11 @@ export class ResourcesService {
   constructor(private http: HttpClient) { }
 
   public getAllResources(): Observable<any> {
-    return this.http.get('../../../assets/mockData/getAllResourcesMock.json');
+    return this.http.get('/getAllFiles');
   }
 
   public getResourceDetails(id): Observable<any> {
-    return this.http.get('../../../assets/mockData/getAllResourcesMock.json');
+    return this.http.get('/getAllFiles');
   }
 
   downloadFileAPI(): Observable<any> {

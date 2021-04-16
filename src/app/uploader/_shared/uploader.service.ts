@@ -8,9 +8,9 @@ export class UploaderService {
   constructor(private http: HttpClient) { }
 
   uploadResourceFileForm(formData: FormData): Observable<any> {
-    let headers = new HttpHeaders();
-    headers=headers.append('Content-Type','multipart/form-data')
-    return this.http.post('/upload', formData, { headers: headers});
+    //let headers = new HttpHeaders();
+    //headers=headers.append('Content-Type','multipart/form-data')
+    return this.http.post('/upload/file', formData);
   }
 
   uploadResourceVideoForm(payload: any): Observable<any> {

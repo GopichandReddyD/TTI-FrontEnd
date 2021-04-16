@@ -30,8 +30,8 @@ export class ResourcesListComponent implements OnInit {
   private getAllResources() {
     this.resourcesService.getAllResources()
       .subscribe(response => {
-        if (response && response.data) {
-          this.resourcesList = response.data;
+        if (response) {
+          this.resourcesList = response;
           console.log(this.resourcesList);
           this.initialiseTable(this.resourcesList);
           this.isLoading = false;

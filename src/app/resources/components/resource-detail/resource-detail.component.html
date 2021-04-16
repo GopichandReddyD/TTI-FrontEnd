@@ -14,7 +14,7 @@
         <p><strong>Name: </strong> {{ resourceDetails.name }}</p>
         <div class="youtube-video-view" *ngIf="resourceDetails.type.includes('video')">
             <youtube-player 
-                videoId="lSpANsEzbM0" 
+                [videoId]="videoId" 
                 suggestedQuality="highres" 
                 [height]="400" 
                 [width]="700">

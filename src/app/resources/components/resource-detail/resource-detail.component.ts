@@ -12,6 +12,7 @@ export class ResourceDetailComponent implements OnInit {
   public resourceID: string;
   public resourceDetails: any;
   public pdfSource: any;
+  public videoId: any;
 
   constructor(private resourcesService: ResourcesService,
     private activatedRoute: ActivatedRoute) { }
@@ -23,11 +24,14 @@ export class ResourceDetailComponent implements OnInit {
 
   private getFileDetails() {
     if (this.resourceDetails.type.includes('pdf')) {
-      this,this.resourcesService.downloadFileAPI()
+      this.resourcesService.downloadFileAPI()
         .subscribe(response => {
           const url = window.URL.createObjectURL(response);
           this.pdfSource = url;
         });
+        
+    }else if(this.resourceDetails.type.includes('video')) {
+      this.videoId = this.resourceDetails.filePath.split('?v=')[1]
     }
   }
 
@@ -35,7 +39,7 @@ export class ResourceDetailComponent implements OnInit {
     this.isLoading = true;
     this.resourcesService.getResourceDetails(this.resourceID)
       .subscribe(response => {
-        const resource = response.data.find(res => res.id.toString() === this.resourceID.toString());
+        const resource = response.find(res => res.id.toString() === this.resourceID.toString());
         this.resourceDetails = resource;
         this.getFileDetails();
         this.isLoading = false;

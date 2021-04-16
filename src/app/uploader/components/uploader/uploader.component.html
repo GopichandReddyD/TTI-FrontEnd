@@ -17,15 +17,15 @@
                     <textarea matInput placeholder="Enter Resource Description" rows="4" formControlName="description" required></textarea>
                 </mat-form-field>
                 <mat-form-field appearance="standard" class="col-8">
-                    <mat-label>Grand Level</mat-label>
-                    <mat-select name="level" formControlName="level" required>
-                        <mat-option *ngFor="let level of gradeLevels" [value]="level.value">{{level.name}}</mat-option>
+                    <mat-label>Main Category</mat-label>
+                    <mat-select name="mainCategory" formControlName="mainCategory" (selectionChange)="onMainCategoryChange()" required>
+                        <mat-option *ngFor="let category of mainCategory" [value]="category">{{category.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="standard" class="col-8">
-                    <mat-label>Subject Area</mat-label>
-                    <mat-select name="attachmentType" formControlName="subjectArea" required>
-                        <mat-option *ngFor="let subject of subjectAreas" [value]="subject.value">{{subject.name}}</mat-option>
+                    <mat-label>Sub Category</mat-label>
+                    <mat-select name="attachmentType" formControlName="subCategory" required>
+                        <mat-option *ngFor="let category of subCategory" [value]="category.value">{{category.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="standard" class="col-8">

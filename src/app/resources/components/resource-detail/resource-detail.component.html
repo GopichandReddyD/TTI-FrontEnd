@@ -30,5 +30,12 @@
                 [show-borders]="true">
             </pdf-viewer>
         </div>
+        <div class="button-section" *ngIf="resourceDetails.type.includes('pdf') && pdfSource">
+            <button type="button" class="btn button download-button" (click)="downloadFile()">
+                Download File
+            </button>
+        </div>
     </div>
 </section>
+
+<a class="download-zip-link" #downloadZipLink></a>

@@ -15,10 +15,31 @@ export class ResourcesListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('resourcePaginator') paginator: MatPaginator;
   @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
-  public displayedColumns: string[] = ['title', 'mainCategory', 'subCategory', 'downloadImage', 'downloads', 'views'];
+  public displayedColumns: string[] = ['sno', 'title', 'mainCategory', 'subCategory', 'downloadImage', 'downloads', 'views', 'actionButton'];
   public isLoading: boolean = true;
   public resourcesList: any = [];
   public dataSource: MatTableDataSource<any[]> = new MatTableDataSource([]);
+  public totalDownloads: number = 0;
+  public totalViews: number = 0;
+  public mainCategoryFilter = [
+    { name: 'FBA', value: 'FBA', subCategory: [{ name: 'Indirect', value: 'Indirect' }, { name: 'Descriptive', value: 'Descriptive' }] },
+    { name: 'Data Collection', value: 'Data Collection', subCategory: [{ name: 'Occurrences', value: 'Occurrences' }, { name: 'Temporal Dimensions', value: 'Temporal Dimensions' }, { name: 'Strength of a behaviour', value: 'Strength of a behaviour' }, { name: 'Sampling procedures', value: 'Sampling procedures' }] },
+    { name: 'Preferencces', value: 'Preferencces', subCategory: [{ name: 'Indirect preference', value: 'Indirect preference' }, { name: 'Direct Preference', value: 'Direct Preference' }] },
+    { name: 'Interobserver', value: 'Interobserver', subCategory: [{ name: 'Discrete Trail', value: 'Discrete Trail' }, { name: 'Frequency', value: 'Frequency' }, { name: 'Duration', value: 'Duration' }, { name: 'Occurrences per interval', value: 'Occurrences per interval' }] },
+  ];
+  public subCategoryFilter = [
+    { name: 'Indirect', value: 'Indirect' },
+    { name: 'Descriptive', value: 'Descriptive' },
+    { name: 'Occurrences', value: 'Occurrences' },
+    { name: 'Temporal Dimensions', value: 'Temporal Dimensions' },
+    { name: 'Strength of a behaviour', value: 'Strength of a behaviour' },
+    { name: 'Sampling procedures', value: 'Sampling procedures' },
+    { name: 'Indirect preference', value: 'Indirect preference' },
+    { name: 'Direct Preference', value: 'Direct Preference' },
+    { name: 'Discrete Trail', value: 'Discrete Trail' }, { name: 'Frequency', value: 'Frequency' },
+    { name: 'Duration', value: 'Duration' },
+    { name: 'Occurrences per interval', value: 'Occurrences per interval' }
+  ];
 
   constructor(private router: Router,
     private resourcesService: ResourcesService) { }
@@ -59,8 +80,13 @@ export class ResourcesListComponent implements OnInit {
       });
   }
 
-  navigateToUrl(resourceName: any) {
-    this.router.navigate(['/resources/tti-resource-detail', resourceName])
+  navigateToUrl(resourceId: any) {
+    this.router.navigate(['/resources/tti-resource-detail', resourceId])
+  }
+
+  public onSelectionChange(checked: boolean, resourceId: number | string) {
+    const resourceIndex = this.resourcesList.findIndex(resource => resource.id.toString() === resourceId.toString());
+    this.resourcesList[resourceIndex]['isSelected'] = checked;
   }
 
 }

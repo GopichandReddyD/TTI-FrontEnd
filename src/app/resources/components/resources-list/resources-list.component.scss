@@ -1,4 +1,5 @@
 @import '../../../../assets/styles/styles';
+@import '../../../../assets/styles/palette';
 
 #resources-section {
     padding: 6rem 0 3rem;
@@ -7,6 +8,13 @@
         border-bottom: 1px solid grey;
         margin-bottom: 30px;
         padding-bottom: 5px;
+    }
+
+    .filter-view {
+        padding: 0.5rem 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
     }
 
     .table-view {
@@ -39,8 +47,8 @@
             }
 
             .mat-column-title {
-                min-width: 40%;
-                max-width: 40%;
+                min-width: 36%;
+                max-width: 36%;
                 cursor: pointer;
             }
             .mat-column-mainCategory {
@@ -57,19 +65,25 @@
                 justify-content: center;
             }
             .mat-column-downloads {
-                max-width: 12%;
-                min-width: 12%;
+                max-width: 11%;
+                min-width: 11%;
                 justify-content: center;
             }
             .mat-column-views {
-                max-width: 12%;
-                min-width: 12%;
+                max-width: 9%;
+                min-width: 9%;
                 justify-content: center;
             }
 
             .icon {
                 font-size: 24px;
                 cursor: pointer;
+            }
+
+            .checkbox {
+                ::ngdeep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+                    background-color: $primary-color;
+                }
             }
         }
         .empty-section {
@@ -83,6 +97,11 @@
             text-align: center;
             }
         }
+    }
+
+    .statistics-view {
+        text-align: end;
+        font-weight: 500;
     }
 
     .paginator-view {
@@ -112,4 +131,8 @@
 }
 .download-zip-link {
     opacity: 0;
+}
+
+::ngdeep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: yellow !important;
 }

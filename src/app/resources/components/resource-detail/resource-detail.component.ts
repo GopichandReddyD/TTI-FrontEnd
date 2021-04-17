@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ResourcesService } from '../../_shared/resources.service';
 
@@ -9,16 +9,17 @@ import { ResourcesService } from '../../_shared/resources.service';
 })
 export class ResourceDetailComponent implements OnInit {
   public isLoading: boolean = true;
-  public resourceName: string;
+  public resourceId: string;
   public resourceDetails: any;
   public pdfSource: any;
   public videoId: any;
+  @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
 
   constructor(private resourcesService: ResourcesService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.resourceName = this.activatedRoute.snapshot.params['resourceName'] || '';
+    this.resourceId = this.activatedRoute.snapshot.params['resourceId'] || '';
     this.getResourceDetails();
   }
 
@@ -38,12 +39,23 @@ export class ResourceDetailComponent implements OnInit {
 
   private getResourceDetails() {
     this.isLoading = true;
-    this.resourcesService.getResourceDetails(this.resourceName)
+    this.resourcesService.getResourceDetails(this.resourceId)
       .subscribe(response => {
-        const resource = response.find(res => res.id.toString() === this.resourceName.toString());
-        this.resourceDetails = resource;
+        this.resourceDetails = response;
         this.getFileDetails();
         this.isLoading = false;
+      });
+  }
+
+  public downloadFile() {
+    this.resourcesService.downloadFileAPI(this.resourceDetails.name)
+      .subscribe(response => {
+        const url = window.URL.createObjectURL(response);    
+        const link = this.downloadZipLink.nativeElement;
+        link.href = url;
+        link.download = this.resourceDetails.name;
+        link.click();
+        window.URL.revokeObjectURL(url);
       });
   }
 

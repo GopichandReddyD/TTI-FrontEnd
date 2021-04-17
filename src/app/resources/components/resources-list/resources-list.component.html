@@ -6,35 +6,78 @@
     <div>
         <h1 class="page-title">TTI Resources</h1>
     </div>
+    <div class="row no-gutters search-view align-items-center justify-content-end">
+      <mat-form-field class="col-3">
+        <mat-label>Search</mat-label>
+        <input type="search" matInput placeholder="search keyword">
+        <i class="las la-search" matSuffix></i>
+        <!-- <mat-icon matSuffix>science</mat-icon> -->
+      </mat-form-field>
+    </div>
+    <div class="row no-gutters filter-view align-items-center justify-content-between">
+      <h5 class="col-6">Select resources by:</h5>
+      <mat-form-field appearance="standard" class="col-2">
+        <mat-label>Main Category</mat-label>
+        <mat-select name="mainCategory">
+            <mat-option *ngFor="let category of mainCategoryFilter" [value]="category.value">{{category.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="standard" class="col-2">
+        <mat-label>Sub Category</mat-label>
+        <mat-select name="subCategory">
+          <mat-option *ngFor="let category of subCategoryFilter" [value]="category.value">{{category.name}}</mat-option>
+      </mat-select>
+      </mat-form-field>
+    </div>
     <div class="mat-elevation-z1 table-view" [hidden]="resourcesList?.length === 0">
       <mat-table [dataSource]="dataSource" matSort matSortStart="asc">
         <ng-container [matColumnDef]="displayedColumns[0]">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </mat-cell>
+        </ng-container>
+        <ng-container [matColumnDef]="displayedColumns[1]">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
           <mat-cell *matCellDef="let element" (click)="navigateToUrl(element.id)"> {{element.title}} </mat-cell>
         </ng-container>
-        <ng-container [matColumnDef]="displayedColumns[1]">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Level </mat-header-cell>
+        <ng-container [matColumnDef]="displayedColumns[2]">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Main Category </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.mainCategory}} </mat-cell>
         </ng-container>
-        <ng-container [matColumnDef]="displayedColumns[2]">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Subject Area </mat-header-cell>
+        <ng-container [matColumnDef]="displayedColumns[3]">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.subCategory}} </mat-cell>
         </ng-container>
-        <ng-container [matColumnDef]="displayedColumns[3]">
+        <ng-container [matColumnDef]="displayedColumns[4]">
           <mat-header-cell *matHeaderCellDef> Download </mat-header-cell>
           <mat-cell *matCellDef="let element">
             <span *ngIf="element.type.includes('pdf')" (click)="downloadFile(element.name)"><i class="las la-file-pdf icon"></i></span>
             <span *ngIf="element.type.includes('video')"><i class="lab la-youtube icon"></i></span>
           </mat-cell>
         </ng-container>
-        <ng-container [matColumnDef]="displayedColumns[4]">
+        <ng-container [matColumnDef]="displayedColumns[5]">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Download # </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.downloads}} </mat-cell>
         </ng-container>
-        <ng-container [matColumnDef]="displayedColumns[5]">
+        <ng-container [matColumnDef]="displayedColumns[6]">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Views # </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.views}} </mat-cell>
-        </ng-container>       
+          <mat-cell *matCellDef="let element">
+            {{element.views}}
+          </mat-cell>
+        </ng-container>
+        <ng-container [matColumnDef]="displayedColumns[7]">
+          <mat-header-cell *matHeaderCellDef>
+            <!-- <mat-checkbox class="checkbox" [disableRipple]="true" [color]="'primary'"></mat-checkbox> -->
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-checkbox class="checkbox"
+              (click)="$event.stopPropagation()"
+              [disableRipple]="true"
+              [color]="'primary'"
+              [checked]="element.isSelected"
+              (change)="onSelectionChange($event.checked, element.id)">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>      
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
@@ -47,6 +90,10 @@
         [pageSizeOptions]="[5, 10, 25, 100]"
         showFirstLastButtons>
       </mat-paginator>
+    </div>
+    <div class="statistics-view">
+      <p>Number of Downloads: {{ totalDownloads }}</p>
+      <p>Number of Views: {{ totalViews }}</p>
     </div>
   </div>
 </section>

@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
@@ -24,6 +27,9 @@ import { ResourcesRoutingModule } from './resources-routing.module';
     MatProgressSpinnerModule,
     YouTubePlayerModule,
     PdfViewerModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatInputModule,
     ResourcesRoutingModule
   ],
   providers: [

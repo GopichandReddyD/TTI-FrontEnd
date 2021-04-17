@@ -20,25 +20,8 @@ export class UploaderComponent implements OnInit {
     { name: 'Data Collection', value: 'Data Collection', subCategory: [{ name: 'Occurrences', value: 'Occurrences' }, { name: 'Temporal Dimensions', value: 'Temporal Dimensions' }, { name: 'Strength of a behaviour', value: 'Strength of a behaviour' }, { name: 'Sampling procedures', value: 'Sampling procedures' }] },
     { name: 'Preferencces', value: 'Preferencces', subCategory: [{ name: 'Indirect preference', value: 'Indirect preference' }, { name: 'Direct Preference', value: 'Direct Preference' }] },
     { name: 'Interobserver', value: 'Interobserver', subCategory: [{ name: 'Discrete Trail', value: 'Discrete Trail' }, { name: 'Frequency', value: 'Frequency' }, { name: 'Duration', value: 'Duration' }, { name: 'Occurrences per interval', value: 'Occurrences per interval' }] },
-    //{ name: 'Entrepreneurship', value: 'Entrepreneurship'},
-    //{ name: 'Literacy/Reading', value: 'Literacy/Reading'}
   ];
   subCategory: any;
-  /*gradeLevels = [
-    { name: 'Pre-K', value: 'Pre-K'},
-    { name: 'Kindergarten', value: 'Kindergarten'},
-    { name: '1st Grade', value: '1st Grade'},
-    { name: '2nd Grade', value: '2nd Grade'},
-    { name: '3rd Grade', value: '3rd Grade'},
-    { name: '4th Grade', value: '4th Grade'},
-    { name: '5th Grade', value: '5th Grade'},
-    { name: '6th Grade', value: '6th Grade'},
-    { name: '7th Grade', value: '7th Grade'},
-    { name: '8th Grade', value: '8th Grade'},
-    { name: '9th Grade', value: '9th Grade'},
-    { name: '10th Grade', value: '10th Grade'},
-    { name: '11th Grade', value: '11th Grade'}
-  ];*/
 
   constructor(private uploaderService: UploaderService,
     private _snackBar: MatSnackBar) { }

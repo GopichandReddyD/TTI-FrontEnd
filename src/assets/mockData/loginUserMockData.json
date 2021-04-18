@@ -1,0 +1,11 @@
+{
+    "user": {
+      "id": 1,
+      "uuid": "udis-sh6s-sja6-ajs6",
+      "fullName": "Test User",
+      "mailId": "testuser@yopmail.com",
+      "permissions": "Admin",
+      "firstLogin": false
+    },
+    "token": "ssadyysfts.dgysgdyufadyasd.dyfyusfdyfsdutsa.dsyafdysafdy"
+  }

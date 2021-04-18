@@ -95,16 +95,14 @@ export class UploaderComponent implements OnInit {
     }
     formData.append('file', this.uploadForm.get('resourceAttachment').value);
     formData.append('fileDetails', JSON.stringify(formDetails));
-    //formData.append("reportProgress", "true");
-    console.log('formdate file', formData.get('file'), formData.get('fileDetails'));
-    // TODO: make POST API call
     this.uploaderService.uploadResourceFileForm(formData)
-      // .pipe(finalize(() => this.isFormSubmitted = false))
       .subscribe(response => {
         this.uploadForm.reset();
         this.openSnackBar('Upload Successful');
+        this.isFormSubmitted = false
       }, err => {
         this.openSnackBar('Upload Not Successful, Please retry');
+        this.isFormSubmitted = false
       });
   }
 

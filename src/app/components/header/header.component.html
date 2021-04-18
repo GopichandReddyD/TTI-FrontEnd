@@ -67,7 +67,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="isUserLoggedIn && displayUploader">
                 <span class="nav-link" [ngClass]="{'active': false}" (click)="navigatetoUploader()">Upload</span>
             </li>
             <li class="nav-item dropdown">
@@ -81,9 +81,24 @@
                 </a>
             </li>
         </ul>
-        <div class="buttons-view">
+        <div class="buttons-view" *ngIf="!isUserLoggedIn">
             <button type="button" class="btn button" routerLink="/auth/login">Log In</button>
             <!-- <button type="button" class="btn button" routerLink="/auth/sign-up">Sign Up</button> -->
+        </div>
+        <div class="profile-view" *ngIf="isUserLoggedIn">
+            <ul class="nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="fasle">
+                        {{ userDetails.fullName }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item">Settings</a>
+                            <a class="dropdown-item" (click)="logoutUser()">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </header>

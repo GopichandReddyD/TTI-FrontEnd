@@ -1,4 +1,4 @@
-<div *ngIf="isLoading" class="spinner-view">
+<div *ngIf="isLoading || isPageChangeLoader" class="spinner-view">
   <mat-spinner diameter="40"></mat-spinner>
 </div>
 <section id="resources-section">
@@ -9,8 +9,8 @@
     <div class="row no-gutters search-view align-items-center justify-content-end">
       <mat-form-field class="col-3">
         <mat-label>Search</mat-label>
-        <input type="search" matInput placeholder="search keyword">
-        <i class="las la-search" matSuffix></i>
+        <input type="search" matInput placeholder="search keyword" [(ngModel)]="searchKeyword" (keyup.enter)="getSearchFilter()">
+        <i class="las la-search" matSuffix (click)="getSearchFilter()"></i>
         <!-- <mat-icon matSuffix>science</mat-icon> -->
       </mat-form-field>
     </div>
@@ -18,13 +18,13 @@
       <h5 class="col-6">Select resources by:</h5>
       <mat-form-field appearance="standard" class="col-2">
         <mat-label>Main Category</mat-label>
-        <mat-select name="mainCategory">
-            <mat-option *ngFor="let category of mainCategoryFilter" [value]="category.value">{{category.name}}</mat-option>
+        <mat-select name="mainCategory" [(ngModel)]="selectedMainCategory" (selectionChange)="onMainCategoryChange()">
+            <mat-option *ngFor="let category of mainCategoryFilter" [value]="category">{{category.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="standard" class="col-2">
         <mat-label>Sub Category</mat-label>
-        <mat-select name="subCategory">
+        <mat-select name="subCategory" [(ngModel)]="selectedSubCategory" (selectionChange)="onSubCategoryChange()">
           <mat-option *ngFor="let category of subCategoryFilter" [value]="category.value">{{category.name}}</mat-option>
       </mat-select>
       </mat-form-field>
@@ -33,11 +33,11 @@
       <mat-table [dataSource]="dataSource" matSort matSortStart="asc">
         <ng-container [matColumnDef]="displayedColumns[0]">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </mat-cell>
+          <mat-cell *matCellDef="let element; let i = index"> {{ (this.pageIndex * 10) + i + 1 }} </mat-cell>
         </ng-container>
         <ng-container [matColumnDef]="displayedColumns[1]">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
-          <mat-cell *matCellDef="let element" (click)="navigateToUrl(element.id)"> {{element.title}} </mat-cell>
+          <mat-cell *matCellDef="let element" (click)="navigateToUrl(element.uuid)"> {{element.title}} </mat-cell>
         </ng-container>
         <ng-container [matColumnDef]="displayedColumns[2]">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Main Category </mat-header-cell>
@@ -85,13 +85,16 @@
         <p>No Resources Available</p>
       </div>
       <mat-paginator #resourcePaginator
-        [length]="resourcesList.length"
-        [pageSize]="5"
-        [pageSizeOptions]="[5, 10, 25, 100]"
+        [length]="totalSize"
+        [pageIndex]="pageIndex"
+        [pageSize]="10"
+        [hidePageSize]="true"
+        (page)="onPageChange($event)"
         showFirstLastButtons>
       </mat-paginator>
     </div>
     <div class="statistics-view">
+      <button type="button" class="btn btn-primary mb-3" (click)="downloadSelectedFiles()">Download Selected Files</button>
       <p>Number of Downloads: {{ totalDownloads }}</p>
       <p>Number of Views: {{ totalViews }}</p>
     </div>

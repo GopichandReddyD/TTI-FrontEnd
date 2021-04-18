@@ -1,6 +1,7 @@
 
 .login-view {
     height: 100vh;
+    min-height: 700px;
 
     .login-box {
         text-align: center;
@@ -12,19 +13,25 @@
             margin-bottom: 2rem;
         }
 
+        .pwrd-eye-icon {
+            cursor: pointer;
+            position: relative;
+            top: -5px;
+            font-size: 20px;
+        }
+
         .buttons-view {
             display: flex;
             justify-content: center;
             margin: 2rem 0;
 
             .login-button {
-                width: 100%;
                 background-color: #8CC34A;
                 color: white;
                 font-weight: 500;
                 font-size: 18px;
                 border-radius: 2rem;
-                padding: 0.5rem 1.5rem;
+                padding: 0.5rem 2.5rem;
 
                 .button-spinner {
                     display: inline-block;

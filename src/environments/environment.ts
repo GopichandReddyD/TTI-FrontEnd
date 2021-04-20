@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  BASE_API_URL: 'http://tti.educ.ttu.edu/backend'
+  BASE_API_URL: 'http://localhost:8080'
   
 };
 

@@ -67,7 +67,7 @@ export class ResourcesListComponent implements OnInit {
   }
 
   private getResourcesList() {
-    const queryObj = this.getPageQueryObj;
+    const queryObj = this.getPageQueryObj();
     this.resourcesService.getResourcesList(queryObj)
       .subscribe(response => {
         if (response && response.data) {

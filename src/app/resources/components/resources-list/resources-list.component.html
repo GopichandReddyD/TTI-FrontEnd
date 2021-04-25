@@ -29,7 +29,7 @@
       </mat-select>
       </mat-form-field>
     </div>
-    <div class="mat-elevation-z1 table-view" [hidden]="resourcesList?.length === 0">
+    <div class="mat-elevation-z1 table-view" [hidden]="isLoading">
       <mat-table [dataSource]="dataSource" matSort matSortStart="asc">
         <ng-container [matColumnDef]="displayedColumns[0]">
           <mat-header-cell *matHeaderCellDef>S.No</mat-header-cell>

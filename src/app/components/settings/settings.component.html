@@ -1,0 +1,57 @@
+<div *ngIf="isLoading" class="spinner-view">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+<section id="uploader-section" *ngIf="!isLoading">
+    <div class="container">
+        <div>
+            <h1 class="page-title">Settings</h1>
+        </div>
+        <div class="row no-gutters justify-content-between">
+            <div class="col-12 col-md-5 category-box">
+                <p class="category-title">
+                    Main Category
+                </p>
+                <ng-container *ngFor="let category of mainCategories; let idx = index">
+                    <p class="category-name" (click)="onSelectMainCategory(idx)"
+                        [ngClass]="{'isSelected': category.isSelected}">
+                        {{category.name}}
+                        <i class="las la-angle-double-right" *ngIf="category.isSelected"></i>
+                    </p>
+                </ng-container>
+                <p class="category-name add-new-button" *ngIf="!isAddNewMainCategoryView" (click)="addNewMainCategory()">
+                    <i class="las la-plus"></i>
+                    Add New
+                </p>
+                <div class="add-input-view" *ngIf="isAddNewMainCategoryView">
+                    <input type="text" placeholder="Enter Name" [(ngModel)]="newMainCategory" autofocus>
+                    <i class="las la-times" (click)="closeAddNewMainCategoryView()"></i>
+                    <i class="las la-check" (click)="onSaveNewMainCategory()"></i>
+                </div>
+            </div>
+            <div class="col-12 col-md-5 category-box">
+                <p class="category-title">
+                    Sub Category
+                </p>
+                <ng-container *ngIf="currentselectedMainCategoryIndex >= 0">
+                    <ng-container *ngFor="let category of subCategories; let idx = index">
+                        <p class="category-name">
+                            {{category.name}}
+                        </p>
+                    </ng-container>
+                    <p class="category-name add-new-button" *ngIf="!isAddNewSubCategoryView" (click)="addNewSubCategory()">
+                        <i class="las la-plus"></i>
+                        Add New
+                    </p>
+                    <div class="add-input-view" *ngIf="isAddNewSubCategoryView">
+                        <input type="text" placeholder="Enter Name" [(ngModel)]="newSubCategory" autofocus>
+                        <i class="las la-times" (click)="closeAddNewSubCategoryView()"></i>
+                        <i class="las la-check" (click)="onSaveNewSubCategory()"></i>
+                    </div>
+                </ng-container>
+                <p *ngIf="currentselectedMainCategoryIndex === -1" class="empty-sub-category">
+                    Please select a Main Category to continue
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

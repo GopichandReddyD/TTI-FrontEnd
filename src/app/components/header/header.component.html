@@ -93,7 +93,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-submenu">
-                            <a class="dropdown-item">Settings</a>
+                            <a class="dropdown-item" *ngIf="isUserLoggedIn && diplaySettings" routerLink="/settings">Settings</a>
                             <a class="dropdown-item" (click)="logoutUser()">Logout</a>
                         </li>
                     </ul>

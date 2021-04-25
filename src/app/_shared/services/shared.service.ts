@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { intersection } from 'lodash';
 
 @Injectable()
 export class SharedService {
@@ -14,6 +15,10 @@ export class SharedService {
   public checkUserAuthentication(token: string, uuid: string): Observable<any> {
     return this.http.get(`/user/authenticate/${token}/${uuid}`);
     // return this.http.get('../../../assets/mockData/userAuthenticationCheckMockData.json');
+  }
+
+  public getMainCategories(): Observable<any> {
+    return this.http.get('../../../assets/mockData/getMainCategoriesMockData.json');
   }
 
   public setUserDetails(details: any) {
@@ -42,5 +47,12 @@ export class SharedService {
 
   public updateTransparentHeader(value: boolean) {
     this.transparentHeader.next(value);
+  }
+
+  public hasAccessRole(roles: any[]) {
+    const userRole = [];
+    userRole.push(this.userDetails.permissions);
+    const validRoles = intersection(roles, userRole);
+    return (validRoles && validRoles.length > 0);
   }
 }

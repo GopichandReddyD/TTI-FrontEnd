@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -10,10 +10,10 @@ import { ResourcesService } from '../../_shared/resources.service';
   templateUrl: './resources-list.component.html',
   styleUrls: ['./resources-list.component.scss']
 })
-export class ResourcesListComponent implements OnInit {
+export class ResourcesListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('resourcePaginator') paginator: MatPaginator;
+  @ViewChild('resourcePaginator', { static: false }) paginator: MatPaginator;
   @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
   public displayedColumns: string[] = ['sno', 'title', 'mainCategory', 'subCategory', 'downloadImage', 'downloads', 'views', 'actionButton'];
   public isLoading: boolean = true;
@@ -55,6 +55,10 @@ export class ResourcesListComponent implements OnInit {
     this.getResourcesList();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+  }
+
   private getPageQueryObj() {
     return {
       pageNo: this.pageIndex,
@@ -86,7 +90,6 @@ export class ResourcesListComponent implements OnInit {
   private initialiseTable(list: any[]) {
     this.dataSource = new MatTableDataSource(list);
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
   }
 
 

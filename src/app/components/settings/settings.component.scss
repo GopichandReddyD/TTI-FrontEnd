@@ -1,0 +1,91 @@
+@import '../../../assets/styles/styles';
+@import '../../../assets/styles/palette';
+
+#uploader-section {
+    padding: 6rem 0 3rem;
+
+    .page-title {
+        border-bottom: 1px solid grey;
+        margin-bottom: 30px;
+        padding-bottom: 5px;
+    }
+
+    .category-box {
+        
+        box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+        border-radius: 5px;
+        min-height: 400px;
+
+        .category-title {
+            padding: 1rem 0;
+            margin: 0;
+            background-color: $color-black-1;
+            color: $color-yellow-1;
+            font-weight: 500;
+            font-size: 18px;
+            text-align: center;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+        }
+
+        .category-name {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 1px solid $color-border-1;
+
+            .la-angle-double-right {
+                margin-left: auto;
+            }
+        }
+
+        .isSelected {
+            background-color: $color-grey-2;
+        }
+
+        .add-new-button {
+            font-weight: normal;
+
+            .la-plus {
+                margin-right: 0.5rem;
+            }
+        }
+
+        .add-input-view {
+            padding: 1rem;
+
+            input {
+                border: 0;
+                border-bottom: 1px solid $color-black-1;
+                width: 80%;
+
+                &:focus-visible {
+                    outline: none;
+                }
+            }
+
+            .la-times {
+                font-size: 22px;
+                width: 10%;
+                color: red;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .la-check {
+                font-size: 22px;
+                width: 10%;
+                color: $color-green-1;
+                text-align: center;
+                cursor: pointer;
+            }
+        }
+
+        .empty-sub-category {
+            padding: 1.5rem;
+        }
+    }
+}

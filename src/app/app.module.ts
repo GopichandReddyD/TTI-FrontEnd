@@ -11,22 +11,28 @@ import { HeaderComponent } from './components/header/header.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { ApiInterceptorService } from './_shared/services/api-interceptor.service';
 import { SharedService } from './_shared/services/shared.service';
+import { SettingsComponent } from './components/settings/settings.component';
+import { FormsModule } from '@angular/forms';
+import { AuthGuard } from './_shared/guards/auth.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule
   ],
   providers: [
     SharedService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptorService,

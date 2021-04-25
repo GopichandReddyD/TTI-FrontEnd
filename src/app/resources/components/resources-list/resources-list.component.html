@@ -32,7 +32,7 @@
     <div class="mat-elevation-z1 table-view" [hidden]="resourcesList?.length === 0">
       <mat-table [dataSource]="dataSource" matSort matSortStart="asc">
         <ng-container [matColumnDef]="displayedColumns[0]">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>S.No</mat-header-cell>
           <mat-cell *matCellDef="let element; let i = index"> {{ (this.pageIndex * 10) + i + 1 }} </mat-cell>
         </ng-container>
         <ng-container [matColumnDef]="displayedColumns[1]">

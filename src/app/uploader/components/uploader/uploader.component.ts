@@ -89,7 +89,7 @@ export class UploaderComponent implements OnInit {
       "title": this.uploadForm.value.title,
       "description": this.uploadForm.value.description,
       "mainCategory": this.uploadForm.value.mainCategory.value,
-      "subCategory": this.uploadForm.value.subCaterory,
+      "subCategory": this.uploadForm.value.subCategory,
       "keywords": this.uploadForm.value.keywords,
       "ref": this.uploadForm.value.references
     }
@@ -111,7 +111,7 @@ export class UploaderComponent implements OnInit {
       "title": this.uploadForm.value.title,
       "description": this.uploadForm.value.description,
       "mainCategory": this.uploadForm.value.mainCategory.value,
-      "subCategory": this.uploadForm.value.subCaterory,
+      "subCategory": this.uploadForm.value.subCategory,
       "type": "video",
       "name": this.uploadForm.value.title,
       "filePath": this.uploadForm.value.filePath,

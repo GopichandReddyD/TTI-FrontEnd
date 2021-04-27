@@ -14,7 +14,7 @@
                 <ng-container *ngFor="let category of mainCategories; let idx = index">
                     <p class="category-name" (click)="onSelectMainCategory(idx)"
                         [ngClass]="{'isSelected': category.isSelected}">
-                        {{category.name}}
+                        {{category.mainCategory}}
                         <i class="las la-angle-double-right" *ngIf="category.isSelected"></i>
                     </p>
                 </ng-container>
@@ -35,7 +35,7 @@
                 <ng-container *ngIf="currentselectedMainCategoryIndex >= 0">
                     <ng-container *ngFor="let category of subCategories; let idx = index">
                         <p class="category-name">
-                            {{category.name}}
+                            {{category}}
                         </p>
                     </ng-container>
                     <p class="category-name add-new-button" *ngIf="!isAddNewSubCategoryView" (click)="addNewSubCategory()">

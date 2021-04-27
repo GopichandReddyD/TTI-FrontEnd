@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
+import { SharedService } from 'src/app/_shared/services/shared.service';
 
 import { UploaderService } from '../../_shared/uploader.service';
 
@@ -15,15 +16,11 @@ export class UploaderComponent implements OnInit {
   isFormSubmitted: boolean = false;
   uploadForm: FormGroup;
   selectedFileName: string = '';
-  mainCategory = [
-    { name: 'FBA', value: 'FBA', subCategory: [{ name: 'Indirect', value: 'Indirect' }, { name: 'Descriptive', value: 'Descriptive' }] },
-    { name: 'Data Collection', value: 'Data Collection', subCategory: [{ name: 'Occurrences', value: 'Occurrences' }, { name: 'Temporal Dimensions', value: 'Temporal Dimensions' }, { name: 'Strength of a behaviour', value: 'Strength of a behaviour' }, { name: 'Sampling procedures', value: 'Sampling procedures' }] },
-    { name: 'Preferences', value: 'Preferences', subCategory: [{ name: 'Indirect preference', value: 'Indirect preference' }, { name: 'Direct Preference', value: 'Direct Preference' }] },
-    { name: 'Interobserver', value: 'Interobserver', subCategory: [{ name: 'Discrete Trail', value: 'Discrete Trail' }, { name: 'Frequency', value: 'Frequency' }, { name: 'Duration', value: 'Duration' }, { name: 'Occurrences per interval', value: 'Occurrences per interval' }] },
-  ];
+  mainCategory = [];
   subCategory: any;
 
   constructor(private uploaderService: UploaderService,
+    private sharedService: SharedService,
     private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -32,7 +29,11 @@ export class UploaderComponent implements OnInit {
       left: 0,
       behavior: 'smooth'
     })
-    this.setFormData();
+    this.sharedService.getMainCategories()
+      .subscribe(response => {
+        this.mainCategory = response;
+        this.setFormData();
+      });
   }
 
   private setFormData() {
@@ -88,7 +89,7 @@ export class UploaderComponent implements OnInit {
     const formDetails = {
       "title": this.uploadForm.value.title,
       "description": this.uploadForm.value.description,
-      "mainCategory": this.uploadForm.value.mainCategory.value,
+      "mainCategory": this.uploadForm.value.mainCategory.mainCategory,
       "subCategory": this.uploadForm.value.subCategory,
       "keywords": this.uploadForm.value.keywords,
       "ref": this.uploadForm.value.references
@@ -110,7 +111,7 @@ export class UploaderComponent implements OnInit {
     const payload = {
       "title": this.uploadForm.value.title,
       "description": this.uploadForm.value.description,
-      "mainCategory": this.uploadForm.value.mainCategory.value,
+      "mainCategory": this.uploadForm.value.mainCategory.mainCategory,
       "subCategory": this.uploadForm.value.subCategory,
       "type": "video",
       "name": this.uploadForm.value.title,

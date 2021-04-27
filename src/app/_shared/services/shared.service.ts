@@ -18,9 +18,18 @@ export class SharedService {
   }
 
   public getMainCategories(): Observable<any> {
-    return this.http.get('../../../assets/mockData/getMainCategoriesMockData.json');
+    return this.http.get('/admin/getAllCategory');
+    // return this.http.get('../../../assets/mockData/getMainCategoriesMockData.json');
   }
 
+  public saveMainCategory(name: string): Observable<any> {
+    return this.http.post(`/admin/addMainCategory/${name}`, {});
+  }
+
+  public saveSubCategory(mainCategorName: string, subCategorName: string): Observable<any> {
+    return this.http.post(`/admin/addMainCategory/${mainCategorName}/${subCategorName}`, {});
+  }
+  
   public setUserDetails(details: any) {
     this.userDetails = details;
   }

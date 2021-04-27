@@ -25,7 +25,7 @@ export class SettingsComponent implements OnInit {
   private getMainCategories() {
     this.sharedService.getMainCategories()
       .subscribe(response => {
-        this.mainCategories = response.data;
+        this.mainCategories = response;
       });
   }
 
@@ -56,9 +56,11 @@ export class SettingsComponent implements OnInit {
 
   public onSaveNewMainCategory() {
     if (this.newMainCategory) {
-    // TODO: API call to add New Main Category
-      this.mainCategories.push({name: this.newMainCategory, value: this.newMainCategory, subCategory: []})
-      this.closeAddNewMainCategoryView();
+    this.sharedService.saveMainCategory(this.newMainCategory)
+      .subscribe(response => {
+        this.mainCategories.push({ mainCategory: this.newMainCategory, subCategory: []})
+        this.closeAddNewMainCategoryView();
+      })
     }
   }
 
@@ -73,11 +75,12 @@ export class SettingsComponent implements OnInit {
 
   public onSaveNewSubCategory() {
     if (this.newSubCategory) {
-    // TODO: API call to add New Main Category
-      this.subCategories.push({ name: this.newSubCategory, value: this.newSubCategory })
-      this.closeAddNewSubCategoryView();
-      console.log('mainCatregory', this.mainCategories);
-      
+      const mainCatregoryName = this.mainCategories[this.currentselectedMainCategoryIndex].mainCategory;
+      this.sharedService.saveSubCategory(mainCatregoryName, this.newSubCategory)
+        .subscribe(response => {
+          this.subCategories.push(this.newSubCategory);
+          this.closeAddNewSubCategoryView();
+        });
     }
   }
 }

@@ -19,13 +19,13 @@
                 <mat-form-field appearance="standard" class="col-8">
                     <mat-label>Main Category</mat-label>
                     <mat-select name="mainCategory" formControlName="mainCategory" (selectionChange)="onMainCategoryChange()" required>
-                        <mat-option *ngFor="let category of mainCategory" [value]="category">{{category.name}}</mat-option>
+                        <mat-option *ngFor="let category of mainCategory" [value]="category">{{category.mainCategory}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="standard" class="col-8">
                     <mat-label>Sub Category</mat-label>
                     <mat-select name="attachmentType" formControlName="subCategory" required>
-                        <mat-option *ngFor="let category of subCategory" [value]="category.value">{{category.name}}</mat-option>
+                        <mat-option *ngFor="let category of subCategory" [value]="category">{{category}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="standard" class="col-8">

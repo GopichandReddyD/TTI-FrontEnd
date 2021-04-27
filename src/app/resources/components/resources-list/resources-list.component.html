@@ -19,13 +19,13 @@
       <mat-form-field appearance="standard" class="col-2">
         <mat-label>Main Category</mat-label>
         <mat-select name="mainCategory" [(ngModel)]="selectedMainCategory" (selectionChange)="onMainCategoryChange()">
-            <mat-option *ngFor="let category of mainCategoryFilter" [value]="category">{{category.name}}</mat-option>
+            <mat-option *ngFor="let category of mainCategoryFilter" [value]="category">{{category.mainCategory}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="standard" class="col-2">
         <mat-label>Sub Category</mat-label>
         <mat-select name="subCategory" [(ngModel)]="selectedSubCategory" (selectionChange)="onSubCategoryChange()">
-          <mat-option *ngFor="let category of subCategoryFilter" [value]="category.value">{{category.name}}</mat-option>
+          <mat-option *ngFor="let category of subCategoryFilter" [value]="category">{{category}}</mat-option>
       </mat-select>
       </mat-form-field>
     </div>

@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ResourcesService } from '../../_shared/resources.service';
+import { SharedService } from 'src/app/_shared/services/shared.service';
 
 @Component({
   selector: 'app-resources-list',
@@ -24,13 +25,7 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
   public totalSize: number = 0;
   public totalDownloads: number = 0;
   public totalViews: number = 0;
-  public mainCategoryFilter = [
-    { name: 'ALL', value: 'ALL', subCategory: [{ name: 'ALL', value: 'ALL' }] },
-    { name: 'FBA', value: 'FBA', subCategory: [{ name: 'Indirect', value: 'Indirect' }, { name: 'Descriptive', value: 'Descriptive' }] },
-    { name: 'Data Collection', value: 'Data Collection', subCategory: [{ name: 'Occurrences', value: 'Occurrences' }, { name: 'Temporal Dimensions', value: 'Temporal Dimensions' }, { name: 'Strength of a behaviour', value: 'Strength of a behaviour' }, { name: 'Sampling procedures', value: 'Sampling procedures' }] },
-    { name: 'Preferencces', value: 'Preferencces', subCategory: [{ name: 'Indirect preference', value: 'Indirect preference' }, { name: 'Direct Preference', value: 'Direct Preference' }] },
-    { name: 'Interobserver', value: 'Interobserver', subCategory: [{ name: 'Discrete Trail', value: 'Discrete Trail' }, { name: 'Frequency', value: 'Frequency' }, { name: 'Duration', value: 'Duration' }, { name: 'Occurrences per interval', value: 'Occurrences per interval' }] },
-  ];
+  public mainCategoryFilter = [];
   public subCategoryFilter = [];
   public selectedMainCategory: any;
   public selectedSubCategory: any;
@@ -49,10 +44,16 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
   // ];
 
   constructor(private router: Router,
+    private sharedService: SharedService,
     private resourcesService: ResourcesService) { }
 
   ngOnInit(): void {
-    this.getResourcesList();
+    this.sharedService.getMainCategories()
+      .subscribe(response => {
+        this.mainCategoryFilter = response;
+        this.getResourcesList();
+      });
+    
   }
 
   ngAfterViewInit(): void {
@@ -64,7 +65,7 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
       pageNo: this.pageIndex,
       pageSize: 10,
       sortBy: 'id',
-      mainCategory: this.selectedMainCategory ? this.selectedMainCategory.value : 'ALL',
+      mainCategory: this.selectedMainCategory ? this.selectedMainCategory.mainCategory : 'ALL',
       subCategory: this.selectedSubCategory || 'ALL',
       search: this.searchKeyword || 'ALL'
     };

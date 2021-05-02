@@ -31,11 +31,19 @@ export class ResourceDetailComponent implements OnInit {
           const url = window.URL.createObjectURL(response);
           this.pdfSource = url;
         });
-        
-    }else if(this.resourceDetails.type.includes('video')) {
-      this.videoId = this.resourceDetails.filePath.split('?v=')[1]
+    } else if(this.resourceDetails.type.includes('video')) {
+      this.videoId = this.getVideoId(this.resourceDetails.filePath);
     }
   }
+
+  private getVideoId(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+
+    return (match && match[2].length === 11)
+      ? match[2]
+      : null;
+}
 
   private getResourceDetails() {
     this.isLoading = true;

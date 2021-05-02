@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
             // TODO: Navigate to set password page
             console.log('first time login');
           } else {
+            this.sharedService.isNavigatedFromLogin = true;
             this.router.navigate(['/home']);
             this.sharedService.updateHeaderClick(HOME_PAGE_SECTIONS.DEFAULT);
           }

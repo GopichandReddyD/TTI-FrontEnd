@@ -1,21 +1,24 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ResourcesService } from '../../_shared/resources.service';
 import { SharedService } from 'src/app/_shared/services/shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-resources-list',
   templateUrl: './resources-list.component.html',
   styleUrls: ['./resources-list.component.scss']
 })
-export class ResourcesListComponent implements OnInit, AfterViewInit {
+export class ResourcesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('resourcePaginator', { static: false }) paginator: MatPaginator;
   @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
+  private mainCategoryFromHeader: string = '';
+  private subscriptions: Subscription[] = [];
   public displayedColumns: string[] = ['sno', 'title', 'mainCategory', 'subCategory', 'downloadImage', 'downloads', 'views', 'actionButton'];
   public isLoading: boolean = true;
   public isPageChangeLoader: boolean = false;
@@ -29,35 +32,42 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
   public subCategoryFilter = [];
   public selectedMainCategory: any;
   public selectedSubCategory: any;
-  public searchKeyword: string = ''; 
-  //   { name: 'Indirect', value: 'Indirect' },
-  //   { name: 'Descriptive', value: 'Descriptive' },
-  //   { name: 'Occurrences', value: 'Occurrences' },
-  //   { name: 'Temporal Dimensions', value: 'Temporal Dimensions' },
-  //   { name: 'Strength of a behaviour', value: 'Strength of a behaviour' },
-  //   { name: 'Sampling procedures', value: 'Sampling procedures' },
-  //   { name: 'Indirect preference', value: 'Indirect preference' },
-  //   { name: 'Direct Preference', value: 'Direct Preference' },
-  //   { name: 'Discrete Trail', value: 'Discrete Trail' }, { name: 'Frequency', value: 'Frequency' },
-  //   { name: 'Duration', value: 'Duration' },
-  //   { name: 'Occurrences per interval', value: 'Occurrences per interval' }
-  // ];
+  public searchKeyword: string = '';
 
   constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
     private sharedService: SharedService,
     private resourcesService: ResourcesService) { }
 
   ngOnInit(): void {
-    this.sharedService.getMainCategories()
-      .subscribe(response => {
-        this.mainCategoryFilter = response;
-        this.getResourcesList();
-      });
-    
+    this.subscribetoURLParams();
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  private getMainCategory() {
+    window.scroll(0, 0);
+    this.mainCategoryFromHeader = this.activatedRoute.snapshot.params['mainCategory'];
+    this.isLoading = true;
+    this.sharedService.getMainCategories()
+      .subscribe(response => {
+        this.mainCategoryFilter = response;
+        const passedCategory = this.mainCategoryFilter.find(category => category.mainCategory === this.mainCategoryFromHeader);
+        if (passedCategory) {
+          this.selectedMainCategory = passedCategory;
+          this.subCategoryFilter = this.selectedMainCategory.subCategory;
+        }
+        this.getResourcesList();
+      });
+  }
+
+  private subscribetoURLParams() {
+    this.subscriptions.push(this.activatedRoute.params
+      .subscribe(params => {
+        this.resetFilters();
+      }));
   }
 
   private getPageQueryObj() {
@@ -87,12 +97,10 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
       })
   }
 
-
   private initialiseTable(list: any[]) {
     this.dataSource = new MatTableDataSource(list);
     this.dataSource.sort = this.sort;
   }
-
 
   downloadFile(fileName: string = 'sample.pdf') {
     this.resourcesService.downloadFileAPI(fileName)
@@ -153,5 +161,19 @@ export class ResourcesListComponent implements OnInit, AfterViewInit {
           window.URL.revokeObjectURL(url);
         })
     }
+  }
+
+  public resetFilters() {
+    this.isLoading = true;
+    this.pageIndex = 0;
+    this.selectedMainCategory = null;
+    this.selectedSubCategory = null;
+    this.searchKeyword = '';
+    this.subCategoryFilter = [];
+    this.getMainCategory();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

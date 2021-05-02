@@ -28,6 +28,12 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.detectElementOnScroll();
+    if (this.sharedService.isNavigatedFromLogin) {
+      setTimeout(() => {
+        this.scrollTo(this.Home);
+      }, 50);
+      this.sharedService.isNavigatedFromLogin = false;
+    }
   }
 
   ngAfterViewInit(): void {

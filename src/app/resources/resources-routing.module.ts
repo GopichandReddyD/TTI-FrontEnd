@@ -6,7 +6,7 @@ import { ResourceDetailComponent } from './components/resource-detail/resource-d
 
 const routes: Routes = [
   {
-    path: 'tti-resources-list',
+    path: 'tti-resources-list/:mainCategory',
     component: ResourcesListComponent
   },
   {

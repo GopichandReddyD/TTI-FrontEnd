@@ -9,6 +9,7 @@ export class SharedService {
   public transparentHeader: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public userloggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public userDetails: any;
+  public isNavigatedFromLogin: boolean = false;
 
   constructor(private http: HttpClient) { }
 

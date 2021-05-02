@@ -92,8 +92,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.sharedService.updateHeaderClick(sectionId);
   }
 
-  public navigatetoUrl() {
-    this.router.navigate(['/resources/tti-resources-list']);
+  public navigatetoUrl(category: string) {
+    this.router.navigate(['/resources/tti-resources-list', category]);
   }
 
   public navigatetoUploader() {

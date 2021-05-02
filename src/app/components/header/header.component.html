@@ -11,12 +11,12 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="fasle"
-                    (click)="navigatetoUrl()">
+                    (click)="navigatetoUrl('ALL')">
                     TTI Resources
                 </a>
                 <ul class="dropdown-menu">
                     <li class="dropdown-submenu" *ngFor="let category of mainCategories; let idx = index">
-                        <a class="dropdown-item">
+                        <a class="dropdown-item" (click)="navigatetoUrl(category.mainCategory)">
                             {{ category.mainCategory }}
                         </a>
                         <!-- <ul class="dropdown-menu" *ngIf="category.subCategory?.length > 0">

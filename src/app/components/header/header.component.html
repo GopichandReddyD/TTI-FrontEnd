@@ -15,54 +15,14 @@
                     TTI Resources
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="dropdown-submenu">
+                    <li class="dropdown-submenu" *ngFor="let category of mainCategories; let idx = index">
                         <a class="dropdown-item">
-                            FBA
+                            {{ category.mainCategory }}
                         </a>
-                        <!-- <a class="dropdown-item dropdown-toggle">
-                            FBA
-                            </a>
-                            <ul class="dropdown-menu">
-                            <li><a class="dropdown-item">Indirect</a></li>
-                            <li><a class="dropdown-item">Descriptive</a></li>
-
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 2</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Subsubmenu2</a></li>
-                                    <li><a class="dropdown-item" href="#">Subsubmenu2</a></li>
-                                </ul>
+                        <!-- <ul class="dropdown-menu" *ngIf="category.subCategory?.length > 0">
+                            <li *ngFor="let subCat of category.subCategory">
+                                <a class="dropdown-item">{{ subCat }}</a>
                             </li>
-                        </ul> -->
-                    </li>
-                    <li class="dropdown-submenu">
-                        <a class="dropdown-item">
-                            Data Collection
-                        </a>
-                        <!-- <ul class="dropdown-menu">
-                            <li><a class="dropdown-item">Occurrences</a></li>
-                            <li><a class="dropdown-item">Temporal Dimensions</a></li>
-                            <li><a class="dropdown-item">Strength of a behaviour</a></li>
-                            <li><a class="dropdown-item">Sampling procedures</a></li>
-                        </ul> -->
-                    </li>
-                    <li class="dropdown-submenu">
-                        <a class="dropdown-item">
-                            Preferences
-                        </a>
-                        <!-- <ul class="dropdown-menu">
-                            <li><a class="dropdown-item">Indirect preference</a></li>
-                            <li><a class="dropdown-item">Direct Preference</a></li>
-                        </ul> -->
-                    </li>
-                    <li class="dropdown-submenu">
-                        <a class="dropdown-item">
-                            Interobserver
-                        </a>
-                        <!-- <ul class="dropdown-menu">
-                            <li><a class="dropdown-item">Discrete Trail</a></li>
-                            <li><a class="dropdown-item">Frequency</a></li>
-                            <li><a class="dropdown-item">Duration</a></li>
-                            <li><a class="dropdown-item">Occurrences per interval</a></li>
                         </ul> -->
                     </li>
                 </ul>

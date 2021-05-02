@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public isUserLoggedIn: boolean = false;
   public displayUploader: boolean = false;
   public diplaySettings: boolean = false;
+  public mainCategories: any[] = [];
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -40,6 +41,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       })
     );
     this.subscribeToLogin();
+    this.getCategoriesList();
+  }
+
+  private getCategoriesList() {
+    this.sharedService.getMainCategories()
+      .subscribe(response => {
+        this.mainCategories = response;
+      })
   }
 
   private resetLoggedInDetails() {

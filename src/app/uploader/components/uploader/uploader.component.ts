@@ -89,7 +89,7 @@ export class UploaderComponent implements OnInit {
     const formDetails = {
       "title": this.uploadForm.value.title,
       "description": this.uploadForm.value.description,
-      "mainCategory": this.uploadForm.value.mainCategory.mainCategory,
+      "mainCategory": this.uploadForm.value.mainCategory.mainCategorys,
       "subCategory": this.uploadForm.value.subCategory,
       "keywords": this.uploadForm.value.keywords,
       "ref": this.uploadForm.value.references

@@ -10,6 +10,8 @@
         </p>
         <h1> {{ resourceDetails.title }}</h1>
         <p><strong>Description: </strong> {{ resourceDetails.description }}</p>
+        <p><strong>MainCategory: </strong> {{ resourceDetails.mainCategory }}</p>
+        <p><strong>SubCategory: </strong> {{ resourceDetails.subCategory }}</p>
         <p><strong>Type: </strong> {{ resourceDetails.type }}</p>
         <p><strong>Name: </strong> {{ resourceDetails.name }}</p>
         <div class="youtube-video-view" *ngIf="resourceDetails.type.includes('video')">

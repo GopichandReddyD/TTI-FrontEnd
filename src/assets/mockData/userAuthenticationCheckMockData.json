@@ -4,7 +4,7 @@
       "uuid": "udis-sh6s-sja6-ajs6",
       "fullName": "Test User",
       "mailId": "testuser@yopmail.com",
-      "permissions": "uploader",
+      "permissions": "Admin",
       "firstLogin": false
     },
     "tokenValid": true

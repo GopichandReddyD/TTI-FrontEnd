@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { debounceTime, filter, map } from 'rxjs/operators';
 import { SharedService } from 'src/app/_shared/services/shared.service';
@@ -22,6 +23,12 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
   public activeSection: ElementRef;
   public activeSectionId: string = 'section-default';
   public HOMEPAGE_SECTIONS = HOME_PAGE_SECTIONS;
+  public contactForm: FormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.email),
+    subject: new FormControl('', Validators.required),
+    message: new FormControl('', Validators.required)
+  });
 
   constructor(private sharedService: SharedService,
               private http: HttpClient) { }

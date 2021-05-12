@@ -1,9 +1,10 @@
 {
   "data": {
     "id": 1,
+    "uuid": "dsada-sis3-sos4-fjd8",
     "description": "des",
-    "mainCategory": "main",
-    "subCategory": "sub",
+    "mainCategory": "Data Collection",
+    "subCategory": "Occurrences",
     "type": "video",
     "keywords": "key,word",
     "name": "sample.pdf",

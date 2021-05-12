@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SharedService } from 'src/app/_shared/services/shared.service';
 import { ResourcesService } from '../../_shared/resources.service';
 
 @Component({
@@ -13,10 +15,17 @@ export class ResourceDetailComponent implements OnInit {
   public resourceDetails: any;
   public pdfSource: any;
   public videoId: any;
+  public showEditView: boolean = false;
+  public uploadForm: FormGroup;
+  public mainCategory = [];
+  public subCategory: any;
+  public isLoadingEditView: boolean = true;
   @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
 
   constructor(private resourcesService: ResourcesService,
-    private activatedRoute: ActivatedRoute) { }
+    private sharedService: SharedService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.resourceId = this.activatedRoute.snapshot.params['resourceId'] || '';
@@ -43,7 +52,7 @@ export class ResourceDetailComponent implements OnInit {
     return (match && match[2].length === 11)
       ? match[2]
       : null;
-}
+  }
 
   private getResourceDetails() {
     this.isLoading = true;
@@ -64,6 +73,65 @@ export class ResourceDetailComponent implements OnInit {
         link.download = this.resourceDetails.name;
         link.click();
         window.URL.revokeObjectURL(url);
+      });
+  }
+
+  public closeEdiView() {
+    this.showEditView = false;
+    this.isLoadingEditView = true;
+  }
+
+  public toggleEditView() {
+    this.showEditView = true;
+    if (this.showEditView) {
+      this.sharedService.getMainCategories()
+        .subscribe(response => {
+          this.mainCategory = response;
+          const categoryIndex = this.mainCategory.findIndex(ctg => ctg.mainCategory === this.resourceDetails.mainCategory);
+          let selectedMainCategory;
+          if (categoryIndex > -1) {
+            selectedMainCategory = this.mainCategory[categoryIndex];
+            this.subCategory = this.mainCategory[categoryIndex].subCategory
+          }
+          this.setFormData(selectedMainCategory);
+        });
+    }
+  }
+
+  public onMainCategoryChange() {
+    this.subCategory = this.uploadForm.value.mainCategory.subCategory;
+  }
+
+  private setFormData(selectedMainCategory: any) {
+    this.uploadForm = new FormGroup({
+      title: new FormControl(this.resourceDetails.title, Validators.required),
+      description: new FormControl(this.resourceDetails.description, Validators.required),
+      mainCategory: new FormControl(selectedMainCategory, Validators.required),
+      subCategory: new FormControl(this.resourceDetails.subCategory, Validators.required)
+    });
+    this.isLoadingEditView = false;
+  }
+
+  public submitUploadForm() {
+    if (this.uploadForm.valid) {
+      const formDetails = {
+        "title": this.uploadForm.value.title,
+        "description": this.uploadForm.value.description,
+        "mainCategory": this.uploadForm.value.mainCategory.mainCategory,
+        "subCategory": this.uploadForm.value.subCategory
+      }
+        this.resourcesService.updateResourceDetails(this.resourceDetails.uuid, formDetails)
+          .subscribe(response => {
+            this.closeEdiView();
+            this.getResourceDetails();
+          })
+    }
+  }
+
+  public deleteResource() {
+    this.resourcesService.deleteResourceDetails(this.resourceId)
+      .subscribe(response => {
+        this.router.navigate(['/resources/tti-resources-list/ALL']);
       });
   }
 

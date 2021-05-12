@@ -12,8 +12,10 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { ApiInterceptorService } from './_shared/services/api-interceptor.service';
 import { SharedService } from './_shared/services/shared.service';
 import { SettingsComponent } from './components/settings/settings.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './_shared/guards/auth.guard';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,9 @@ import { AuthGuard } from './_shared/guards/auth.guard';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule

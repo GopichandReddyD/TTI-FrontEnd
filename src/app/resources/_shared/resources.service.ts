@@ -19,6 +19,14 @@ export class ResourcesService {
     // return this.http.get('../../../assets/mockData/getResourceDetail.json');
   }
 
+  public updateResourceDetails(id: string, requestObj: any): Observable<any> {
+    return this.http.put(`/edit/file?uuid=${id}`, requestObj);
+  }
+
+  public deleteResourceDetails(id: string): Observable<any> {
+    return this.http.delete(`/delete/file?uuid=${id}`);
+  }
+
   public downloadFileAPI(fileName: string): Observable<any> {
     return this.http.get(`/getFile/${fileName}`, {
       responseType: 'blob' as 'json'

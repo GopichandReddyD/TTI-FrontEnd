@@ -83,4 +83,8 @@ export class SettingsComponent implements OnInit {
         });
     }
   }
+
+  public deleteCategory(category) {
+    console.log('selete category', category)
+  }
 }

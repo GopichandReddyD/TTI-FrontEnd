@@ -12,13 +12,16 @@
                     Main Category
                 </p>
                 <ng-container *ngFor="let category of mainCategories; let idx = index">
-                    <p class="category-name" (click)="onSelectMainCategory(idx)"
-                        [ngClass]="{'isSelected': category.isSelected}">
-                        {{category.mainCategory}}
-                        <i class="las la-angle-double-right" *ngIf="category.isSelected"></i>
+                    <p class="category-view" [ngClass]="{'isSelected': category.isSelected}">
+                        <span class="category-name" (click)="onSelectMainCategory(idx)">
+                            {{category.mainCategory}}
+                        </span>
+                        <span class="action-buttons">
+                            <i class="las la-trash-alt" (click)="deleteCategory(category)"></i>
+                        </span>
                     </p>
                 </ng-container>
-                <p class="category-name add-new-button" *ngIf="!isAddNewMainCategoryView" (click)="addNewMainCategory()">
+                <p class="category-view add-new-button" *ngIf="!isAddNewMainCategoryView" (click)="addNewMainCategory()">
                     <i class="las la-plus"></i>
                     Add New
                 </p>
@@ -34,11 +37,11 @@
                 </p>
                 <ng-container *ngIf="currentselectedMainCategoryIndex >= 0">
                     <ng-container *ngFor="let category of subCategories; let idx = index">
-                        <p class="category-name">
+                        <p class="category-view">
                             {{category}}
                         </p>
                     </ng-container>
-                    <p class="category-name add-new-button" *ngIf="!isAddNewSubCategoryView" (click)="addNewSubCategory()">
+                    <p class="category-view add-new-button" *ngIf="!isAddNewSubCategoryView" (click)="addNewSubCategory()">
                         <i class="las la-plus"></i>
                         Add New
                     </p>

@@ -3,38 +3,76 @@
   </div>
 <section id="resource-details-section" *ngIf="!isLoading">
     <div class="container">
-        <p class="back-breadcrumb">
-            <span routerLink="/resources/tti-resources-list/ALL">
+        <div class="back-breadcrumb-view">
+            <span class="breadcrumb-link" routerLink="/resources/tti-resources-list/ALL">
                 <i class="las la-angle-left"></i> Back to TTI Resources
             </span>
-        </p>
-        <h1> {{ resourceDetails.title }}</h1>
-        <p><strong>Description: </strong> {{ resourceDetails.description }}</p>
-        <p><strong>Type: </strong> {{ resourceDetails.type }}</p>
-        <p><strong>Name: </strong> {{ resourceDetails.name }}</p>
-        <div class="youtube-video-view" *ngIf="resourceDetails.type.includes('video')">
-            <youtube-player 
-                [videoId]="videoId" 
-                suggestedQuality="highres" 
-                [height]="400" 
-                [width]="700">
-            </youtube-player>
+            <span class="action-buttons" *ngIf="!showEditView">
+                <button type="button" class="btn button edit-button" (click)="toggleEditView()">Edit</button>
+                <button type="button" class="btn button delete-button" (click)="deleteResource()">Delete</button>
+            </span>
         </div>
-        <div *ngIf="resourceDetails.type.includes('pdf') && pdfSource">
-            <pdf-viewer
-                [src]="pdfSource"
-                [render-text]="true"
-                [original-size]="true"
-                [fit-to-page]="true"
-                [show-all]="true"
-                [show-borders]="true">
-            </pdf-viewer>
-        </div>
-        <div class="button-section" *ngIf="resourceDetails.type.includes('pdf') && pdfSource">
-            <button type="button" class="btn button download-button" (click)="downloadFile()">
-                Download File
-            </button>
-        </div>
+        <h1 *ngIf="!showEditView">{{ resourceDetails.title }}</h1>
+        <h1 *ngIf="showEditView">Edit Resource - {{ resourceDetails.title }}</h1>
+        <ng-container *ngIf="!showEditView">
+            <p><strong>Description: </strong> {{ resourceDetails.description }}</p>
+            <p><strong>Type: </strong> {{ resourceDetails.type }}</p>
+            <p><strong>Name: </strong> {{ resourceDetails.name }}</p>
+            <div class="youtube-video-view" *ngIf="resourceDetails.type.includes('video')">
+                <youtube-player 
+                    [videoId]="videoId" 
+                    suggestedQuality="highres" 
+                    [height]="400" 
+                    [width]="700">
+                </youtube-player>
+            </div>
+            <div *ngIf="resourceDetails.type.includes('pdf') && pdfSource">
+                <pdf-viewer
+                    [src]="pdfSource"
+                    [render-text]="true"
+                    [original-size]="true"
+                    [fit-to-page]="true"
+                    [show-all]="true"
+                    [show-borders]="true">
+                </pdf-viewer>
+            </div>
+            <div class="button-section" *ngIf="resourceDetails.type.includes('pdf') && pdfSource">
+                <button type="button" class="btn button download-button" (click)="downloadFile()">
+                    Download File
+                </button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="showEditView && !isLoadingEditView">
+            <form [formGroup]="uploadForm" class="row no-gutters upload-form justify-content-center">
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-label>Title</mat-label>
+                    <input matInput placeholder="Enter Resource Title" formControlName="title" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput placeholder="Enter Resource Description" rows="4" formControlName="description" required></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-label>Main Category</mat-label>
+                    <mat-select name="mainCategory" formControlName="mainCategory" (selectionChange)="onMainCategoryChange()" required>
+                        <mat-option *ngFor="let category of mainCategory" [value]="category">{{category.mainCategory}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-label>Sub Category</mat-label>
+                    <mat-select name="attachmentType" formControlName="subCategory" required>
+                        <mat-option *ngFor="let category of subCategory" [value]="category">{{category}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="col-8 buttons-view">
+                    <button type="button" class="btn button submit-button" (click)="submitUploadForm()" [ngClass]="{'disabled-button': !uploadForm.valid}">
+                        Submit
+                    </button>
+                    <button type="button" class="btn button reset-button" (click)="closeEdiView()">Cancel</button>
+                </div>
+            </form>
+        </ng-container>
     </div>
 </section>
 

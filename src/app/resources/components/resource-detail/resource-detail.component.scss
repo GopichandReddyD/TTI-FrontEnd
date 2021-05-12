@@ -4,16 +4,36 @@
 #resource-details-section {
     padding: 6rem 0 3rem;
 
-    .back-breadcrumb {
-        color: $color-yellow-1;
-        font-weight: 600;
-        font-size: 14px;
+    .back-breadcrumb-view {
+        display: flex;
+        align-items: center;
 
-        span {
+        .breadcrumb-link {
             cursor: pointer;
+            color: $color-yellow-1;
+            font-weight: 600;
+            font-size: 14px;
 
             &:focus {
                outline: none;
+            }
+        }
+
+        .action-buttons {
+            margin-left: auto;
+
+            .edit-button {
+                border: 1px solid blue;
+                color: blue;
+                text-transform: uppercase;
+            }
+
+            .delete-button {
+                border: 1px solid $color-red-1;
+                color: white;
+                text-transform: uppercase;
+                background: $color-red-1;
+                margin-left: 1rem;
             }
         }
     }
@@ -40,6 +60,47 @@
                 position: relative;
                 top: 4px;
                 left: 4px;
+            }
+        }
+    }
+
+    .upload-form {
+        padding-top: 3rem;
+        box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+        .buttons-view {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+
+            .submit-button {
+                background-color: #8CC34A;
+                color: white;
+                font-weight: 500;
+                font-size: 18px;
+                border-radius: 2rem;
+                padding: 0.5rem 1.5rem;
+
+                .button-spinner {
+                    display: inline-block;
+                    position: relative;
+                    top: 4px;
+                    left: 4px;
+                }
+            }
+
+            .disabled-button {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .reset-button {
+                background-color: #cc0000;
+                color: white;
+                font-weight: 500;
+                font-size: 18px;
+                border-radius: 2rem;
+                margin-left: 15px;
+                padding: 0.5rem 1.5rem;
             }
         }
     }

@@ -130,11 +130,38 @@
     </div>
     <div #contactus id="section-contactus" class="section section-contactus">
         <div class="container">
-            <div>
-                <h1 class="section-title" style="color: black;">CONTACT US</h1>
+            <div style="width: 'inherit';">
+                <h1 class="section-title" style="color: black;">
+                    <span class="initial">C</span>ONTACT
+                    <span class="initial"> U</span>S
+                </h1>
                 <div class="row section-des">
                     <div class="col-md-2"></div>
                     <div class="col-md-9">
+                        <h5>Please don't hesitate to contact us for more information</h5>
+                        <form [formGroup]="contactForm" class="row no-gutters justify-content-center">
+                            <mat-form-field appearance="outline" class="col-12">
+                                <mat-label>Name</mat-label>
+                                <input matInput type="text" placeholder="Enter Name" formControlName="name" required>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="col-12">
+                                <mat-label>Email</mat-label>
+                                <input matInput type="email" placeholder="Enter Email" formControlName="email" required>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="col-12">
+                                <mat-label>Subject</mat-label>
+                                <input matInput type="text" placeholder="Enter Subject" formControlName="subject" required>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="col-12">
+                                <mat-label>Message</mat-label>
+                                <textarea matInput placeholder="Enter Your Message" rows="3" formControlName="message" required></textarea>
+                            </mat-form-field>
+                            <div class="col-12 buttons-view">
+                                <button type="button" class="btn button contact-form-submit" [ngClass]="{'disabled-button': !contactForm.valid}">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

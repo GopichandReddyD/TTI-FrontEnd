@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
@@ -32,6 +32,7 @@ import { ResourcesRoutingModule } from './resources-routing.module';
     MatSelectModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     ResourcesRoutingModule
   ],
   providers: [

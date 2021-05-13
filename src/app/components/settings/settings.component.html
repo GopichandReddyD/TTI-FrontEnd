@@ -38,7 +38,10 @@
                 <ng-container *ngIf="currentselectedMainCategoryIndex >= 0">
                     <ng-container *ngFor="let category of subCategories; let idx = index">
                         <p class="category-view">
-                            {{category}}
+                            <span class="category-name">{{category}}</span>
+                            <span class="action-buttons">
+                                <i class="las la-trash-alt" (click)="deleteCategory(category)"></i>
+                            </span>
                         </p>
                     </ng-container>
                     <p class="category-view add-new-button" *ngIf="!isAddNewSubCategoryView" (click)="addNewSubCategory()">

@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
@@ -33,6 +34,7 @@ import { ResourcesRoutingModule } from './resources-routing.module';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
     ResourcesRoutingModule
   ],
   providers: [

@@ -1,7 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SharedService } from 'src/app/_shared/services/shared.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { USER_ROLES } from '../../../_shared/constants/constants'
+import { SharedService } from '../../../_shared/services/shared.service';
 import { ResourcesService } from '../../_shared/resources.service';
 
 @Component({
@@ -20,16 +23,26 @@ export class ResourceDetailComponent implements OnInit {
   public mainCategory = [];
   public subCategory: any;
   public isLoadingEditView: boolean = true;
+  public canEdit: boolean = false;
   @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
 
   constructor(private resourcesService: ResourcesService,
     private sharedService: SharedService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.resourceId = this.activatedRoute.snapshot.params['resourceId'] || '';
     this.getResourceDetails();
+  }
+  
+  checkForLoggedInUser(): boolean {
+    const userDetails = this.sharedService.getUserDetails();
+    if (userDetails) {
+      this.canEdit = userDetails.permissions === USER_ROLES.ADMIN || userDetails.permissions === USER_ROLES.UPLOADER
+    }
+    return this.canEdit;
   }
 
   private getFileDetails() {
@@ -82,19 +95,25 @@ export class ResourceDetailComponent implements OnInit {
   }
 
   public toggleEditView() {
-    this.showEditView = true;
-    if (this.showEditView) {
-      this.sharedService.getMainCategories()
-        .subscribe(response => {
-          this.mainCategory = response;
-          const categoryIndex = this.mainCategory.findIndex(ctg => ctg.mainCategory === this.resourceDetails.mainCategory);
-          let selectedMainCategory;
-          if (categoryIndex > -1) {
-            selectedMainCategory = this.mainCategory[categoryIndex];
-            this.subCategory = this.mainCategory[categoryIndex].subCategory
-          }
-          this.setFormData(selectedMainCategory);
-        });
+    if (this.checkForLoggedInUser()) {
+      this.showEditView = true;
+      if (this.showEditView) {
+        this.sharedService.getMainCategories()
+          .subscribe(response => {
+            this.mainCategory = response;
+            const categoryIndex = this.mainCategory.findIndex(ctg => ctg.mainCategory === this.resourceDetails.mainCategory);
+            let selectedMainCategory;
+            if (categoryIndex > -1) {
+              selectedMainCategory = this.mainCategory[categoryIndex];
+              this.subCategory = this.mainCategory[categoryIndex].subCategory
+            }
+            this.setFormData(selectedMainCategory);
+          });
+      }
+    } else {
+      this._snackBar.open('You must be Admin or Uploder to Modify', null, {
+        duration: 2000,
+      });
     }
   }
 
@@ -129,10 +148,16 @@ export class ResourceDetailComponent implements OnInit {
   }
 
   public deleteResource() {
-    this.resourcesService.deleteResourceDetails(this.resourceId)
-      .subscribe(response => {
-        this.router.navigate(['/resources/tti-resources-list/ALL']);
+    if (this.checkForLoggedInUser()) {
+      this.resourcesService.deleteResourceDetails(this.resourceId)
+        .subscribe(response => {
+          this.router.navigate(['/resources/tti-resources-list/ALL']);
+        });
+    } else {
+      this._snackBar.open('You must be Admin or Uploder to Modify', null, {
+        duration: 2000,
       });
+    }
   }
 
 }

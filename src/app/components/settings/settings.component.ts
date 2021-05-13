@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { SharedService } from 'src/app/_shared/services/shared.service';
 
 @Component({
@@ -16,7 +18,8 @@ export class SettingsComponent implements OnInit {
   public newMainCategory: string = '';
   public newSubCategory: string = '';
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService,
+    private _snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getMainCategories();
@@ -85,6 +88,8 @@ export class SettingsComponent implements OnInit {
   }
 
   public deleteCategory(category) {
-    console.log('selete category', category)
+    this._snackbar.open('You must be Admin or Uploder to Modify', null, {
+      duration: 2000,
+    });
   }
 }

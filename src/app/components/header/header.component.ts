@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { SharedService } from 'src/app/_shared/services/shared.service';
+import { SharedService } from '../../_shared/services/shared.service';
 import { HOME_PAGE_SECTIONS, TOKEN, UUID, USER_ROLES } from '../../_shared/constants/constants';
 
 @Component({

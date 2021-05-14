@@ -41,4 +41,10 @@ export class ResourcesService {
       responseType: 'blob' as 'json'
     });
   }
+
+  public previewFileAPI(fileName: string): Observable<any> {
+    return this.http.get(`/getFile1/${fileName}`, {
+      responseType: 'blob' as 'json'
+    });
+  }
 }

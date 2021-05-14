@@ -48,7 +48,7 @@ export class ResourceDetailComponent implements OnInit {
   private getFileDetails() {
     if (this.resourceDetails.type.includes('pdf')) {
       const fileName = this.resourceDetails.name;
-      this.resourcesService.downloadFileAPI(fileName)
+      this.resourcesService.previewFileAPI(fileName)
         .subscribe(response => {
           const url = window.URL.createObjectURL(response);
           this.pdfSource = url;

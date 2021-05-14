@@ -88,7 +88,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public deleteCategory(category) {
-    this._snackbar.open('You must be Admin or Uploder to Modify', null, {
+    this._snackbar.open('You contact SuperAdmin', null, {
       duration: 2000,
     });
   }

@@ -88,7 +88,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public deleteCategory(category) {
-    this._snackbar.open('You contact SuperAdmin', null, {
+    this._snackbar.open('Please contact SuperAdmin', null, {
       duration: 2000,
     });
   }

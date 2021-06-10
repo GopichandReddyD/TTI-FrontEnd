@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { debounceTime, filter, map } from 'rxjs/operators';
 import { SharedService } from 'src/app/_shared/services/shared.service';
@@ -31,7 +32,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
   });
 
   constructor(private sharedService: SharedService,
-              private http: HttpClient) { }
+              private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.detectElementOnScroll();
@@ -146,6 +147,23 @@ export class LandingPageComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       })
     );
+  }
+
+  public submitContactForm() {
+    if (this.contactForm.valid) {
+      this.sharedService.submitContactUsDetails(this.contactForm.value)
+        .subscribe(response => {
+          this.contactForm.reset();
+          this.snackbar.open('Details send successfully', null, {
+            duration: 1000,
+          });
+        }, (error) => {
+          this.contactForm.reset();
+          this.snackbar.open('Something went wrong. Please try again', null, {
+            duration: 2000,
+          });
+        })
+    }
   }
 
   ngOnDestroy(): void {

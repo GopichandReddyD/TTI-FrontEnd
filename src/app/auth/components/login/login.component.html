@@ -5,13 +5,14 @@
             <mat-form-field appearance="outline" class="col-12">
                 <mat-label>Email</mat-label>
                 <input matInput type="email" placeholder="Enter Email" formControlName="mailId" required>
+                <mat-error>Invaid Email</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="col-12">
                 <mat-label>Password</mat-label>
                 <input matInput [type]="hidePassowrd ? 'password' : 'text'" placeholder="Enter Password" formControlName="password" required>
                 <i class="las la-eye pwrd-eye-icon" matSuffix *ngIf="!hidePassowrd" (click)="hidePassowrd = !hidePassowrd"></i>
                 <i class="las la-eye-slash pwrd-eye-icon" matSuffix *ngIf="hidePassowrd" (click)="hidePassowrd = !hidePassowrd"></i>
-                <mat-hint>Password must contain min 6 characters</mat-hint>
+                <mat-error>Password must contain min 6 characters</mat-error>
             </mat-form-field>
             <div class="col-8 buttons-view">
                 <button type="button" class="btn button login-button" (click)="loginUser()" [ngClass]="{'disabled-button': !loginForm.valid || isFormSubmitted}">
@@ -20,7 +21,7 @@
                 </button>
             </div>
             <div class="col-8 forgot-password">
-                <p>Forgot password?</p>
+                <p routerLink="/auth/forgot-password">Forgot password?</p>
             </div>
         </form>
     </div>

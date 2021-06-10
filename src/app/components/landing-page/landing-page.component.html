@@ -157,7 +157,8 @@
                                 <textarea matInput placeholder="Enter Your Message" rows="3" formControlName="message" required></textarea>
                             </mat-form-field>
                             <div class="col-12 buttons-view">
-                                <button type="button" class="btn button contact-form-submit" [ngClass]="{'disabled-button': !contactForm.valid}">
+                                <button type="button" class="btn button contact-form-submit" [ngClass]="{'disabled-button': !contactForm.valid}"
+                                    (click)="submitContactForm()">
                                     Submit
                                 </button>
                             </div>

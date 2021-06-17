@@ -31,6 +31,10 @@ export class SharedService {
     return this.http.post(`/admin/addMainCategory/${mainCategorName}/${subCategorName}`, {});
   }
   
+  public submitContactUsDetails(reqBody: any): Observable<any> {
+    return this.http.post(`/email/contactUS`, reqBody);
+  }
+  
   public setUserDetails(details: any) {
     this.userDetails = details;
   }

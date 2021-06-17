@@ -11,4 +11,12 @@ export class AuthService {
     return this.http.post('/user/login', payload);
     // return this.http.get('../../../assets/mockData/loginUserMockData.json')
   }
+
+  public forgotPassword(username: any): Observable<any> {
+    return this.http.post(`/forgotpassword/userName/${username}`, null);
+  }
+
+  public resetPassword(reqBody: any): Observable<any> {
+    return this.http.post('/forgotpassword/reset', reqBody);
+  }
 }

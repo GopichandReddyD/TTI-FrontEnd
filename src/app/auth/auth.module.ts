@@ -9,11 +9,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AuthService } from './_shared/auth.service';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPaswordComponent } from './components/reset-pasword/reset-pasword.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    ForgotPasswordComponent,
+    ResetPaswordComponent
   ],
   imports: [
     CommonModule,

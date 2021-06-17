@@ -1,0 +1,27 @@
+<div class="row no-gutters justify-content-center align-items-center login-view">
+    <div class="col-12 col-sm-10 col-md-4 login-box">
+        <h2 class="login-title">Reset Password</h2>
+        <form [formGroup]="resetPasswordForm" class="row no-gutters justify-content-center">
+            <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hidePassowrd ? 'password' : 'text'" placeholder="Enter Password" formControlName="password" required>
+                <i class="las la-eye pwrd-eye-icon" matSuffix *ngIf="!hidePassowrd" (click)="hidePassowrd = !hidePassowrd"></i>
+                <i class="las la-eye-slash pwrd-eye-icon" matSuffix *ngIf="hidePassowrd" (click)="hidePassowrd = !hidePassowrd"></i>
+                <mat-error>Password must contain min 6 characters</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput [type]="hideConfirmPassowrd ? 'password' : 'text'" placeholder="Re-Enter Password" formControlName="confirmPassword" required>
+                <i class="las la-eye pwrd-eye-icon" matSuffix *ngIf="!hideConfirmPassowrd" (click)="hideConfirmPassowrd = !hideConfirmPassowrd"></i>
+                <i class="las la-eye-slash pwrd-eye-icon" matSuffix *ngIf="hideConfirmPassowrd" (click)="hideConfirmPassowrd = !hideConfirmPassowrd"></i>
+                <mat-hint style="color: #f44336" *ngIf="!passwordsMatch">Passwords didnot match</mat-hint>
+            </mat-form-field>
+            <div class="col-8 buttons-view">
+                <button type="button" class="btn button login-button" (click)="submitForm()" [ngClass]="{'disabled-button': !resetPasswordForm.valid || isFormSubmitted}">
+                    Submit
+                    <mat-spinner diameter="20" *ngIf="isFormSubmitted" class="button-spinner"></mat-spinner>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

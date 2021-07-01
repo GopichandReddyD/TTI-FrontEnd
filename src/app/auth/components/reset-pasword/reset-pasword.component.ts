@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../_shared/auth.service';
+import { EncryptionService } from '../../_shared/encryption.service';
 
 @Component({
   selector: 'app-reset-pasword',
@@ -26,7 +27,8 @@ export class ResetPaswordComponent implements OnInit {
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private snackbar: MatSnackBar,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private encryptionService: EncryptionService) { }
 
   ngOnInit(): void {
     this.uuid = this.activatedRoute.snapshot.params['uuid'] || '';
@@ -45,7 +47,7 @@ export class ResetPaswordComponent implements OnInit {
       this.isFormSubmitted = true;
       const reqBody = {
         token: this.uuid,
-        password: this.resetPasswordForm.value.password
+        password: this.encryptionService.set(this.resetPasswordForm.value.password)
       }
       this.authService.resetPassword(reqBody)
         .subscribe(response => {

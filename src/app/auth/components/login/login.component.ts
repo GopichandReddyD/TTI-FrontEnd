@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SharedService } from 'src/app/_shared/services/shared.service';
 import { AuthService } from '../../_shared/auth.service';
 import { HOME_PAGE_SECTIONS, TOKEN, UUID } from '../../../_shared/constants/constants'
+import { EncryptionService } from '../../_shared/encryption.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private sharedService: SharedService,
-    private router: Router) { }
+    private router: Router,
+    private encryptionService: EncryptionService) { }
 
   ngOnInit(): void {
   }
@@ -29,7 +31,11 @@ export class LoginComponent implements OnInit {
   loginUser() {
     if (this.loginForm.valid) {
       this.isFormSubmitted = true;
-      this.authService.loginUser(this.loginForm.value)
+      const reqPayload = {
+        mailId: this.loginForm.value.mailId,
+        password: this.encryptionService.set(this.loginForm.value.password)
+      };
+      this.authService.loginUser(reqPayload)
         .subscribe(response => {
           localStorage.setItem(TOKEN, response.token);
           localStorage.setItem(UUID, response.user.uuid);

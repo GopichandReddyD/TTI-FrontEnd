@@ -11,6 +11,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AuthService } from './_shared/auth.service';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPaswordComponent } from './components/reset-pasword/reset-pasword.component';
+import { EncryptionService } from './_shared/encryption.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ResetPaswordComponent } from './components/reset-pasword/reset-pasword.
     AuthRoutingModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    EncryptionService
   ]
 })
 export class AuthModule { }
